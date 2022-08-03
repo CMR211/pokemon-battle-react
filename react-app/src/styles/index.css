@@ -1,4 +1,6 @@
-*, *:after, *:before {
+*,
+*:after,
+*:before {
   margin: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -19,6 +21,10 @@ body {
   background-color: #c8c8c8;
   line-height: 1.4;
   color: #4b4b4b;
+}
+
+svg {
+  color: inherit;
 }
 
 button {

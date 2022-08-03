@@ -3,6 +3,9 @@ import React from "react"
 import usePokemonEndpoint from "../utilities/usePokemonEndpoint"
 import usePokemonSpeciesEndpoint from "../utilities/usePokemonSpeciesEndpoint"
 
+import iconLike from "../icons/heart-line.svg"
+import iconBack from "../icons/arrow-go-back-fill.svg"
+
 import pokemonHeight from "../utilities/pokemonHeight"
 import pokemonWeight from "../utilities/pokemonWeight"
 import capitalize from "../utilities/capitalize"
@@ -17,7 +20,7 @@ const COLORS = {
     brown: "rgb(177, 115, 108)",
     gray: "rgb(160, 160, 160)",
     white: "rgb(240, 240, 240)",
-    pink: "rgb(248, 144, 200)"
+    pink: "rgb(248, 144, 200)",
 }
 
 export default function PokemonCard({ idOrName }) {
@@ -50,8 +53,18 @@ export default function PokemonCard({ idOrName }) {
     return (
         <div className="pokemon-card" style={{ "--bg-color": COLORS[pokemonSpeciesData.color.name] }}>
             <div className="pokemon-card__nav">
-                <button className="pokemon-card__nav__button--return pokemon-card__nav__button">Return</button>
-                <button className="pokemon-card__nav__button--like pokemon-card__nav__button">Like</button>
+                <button className="pokemon-card__nav__button--return pokemon-card__nav__button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path stroke="currentColor" fill="currentColor" d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z" />
+                    </svg>
+                </button>
+                <button className="pokemon-card__nav__button--like pokemon-card__nav__button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" d="M0 0H24V24H0z" />
+                        <path stroke="currentColor" fill="currentColor" d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228zm6.826 1.641c-1.5-1.502-3.92-1.563-5.49-.153l-1.335 1.198-1.336-1.197c-1.575-1.412-3.99-1.35-5.494.154-1.49 1.49-1.565 3.875-.192 5.451L12 18.654l7.02-7.03c1.374-1.577 1.299-3.959-.193-5.454z" />
+                    </svg>
+                </button>
             </div>
 
             <div className="pokemon-card__hero">

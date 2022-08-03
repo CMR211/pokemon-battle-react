@@ -2,7 +2,9 @@ $border-radius: 1rem;
 
 $clr-gray: rgb(160, 160, 160);
 
-*, *:after, *:before {
+*,
+*:after,
+*:before {
     margin: 0;
     box-sizing: border-box;
 }
@@ -16,6 +18,10 @@ body {
     background-color: rgb(200, 200, 200);
     line-height: 1.4;
     color: rgb(75, 75, 75);
+}
+
+svg {
+    color: inherit;
 }
 
 button {

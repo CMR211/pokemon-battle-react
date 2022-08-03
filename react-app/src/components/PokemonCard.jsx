@@ -10,6 +10,7 @@ import pokemonHeight from "../utilities/pokemonHeight"
 import pokemonWeight from "../utilities/pokemonWeight"
 import capitalize from "../utilities/capitalize"
 import padZero from "../utilities/padZero"
+import { useParams } from "react-router-dom"
 
 const COLORS = {
     green: "rgb(79, 193, 166)",
@@ -23,13 +24,28 @@ const COLORS = {
     pink: "rgb(248, 144, 200)",
 }
 
-export default function PokemonCard({ idOrName }) {
+export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons }) {
+    let { id } = useParams()
+    const idOrName = id || 1
+
     const [contentCard, setContentCard] = React.useState(0)
     const [pokemonData, setPokemonData] = React.useState(null)
     const [pokemonSpeciesData, setPokemonSpeciesData] = React.useState(null)
 
     usePokemonEndpoint(idOrName, setPokemonData)
     usePokemonSpeciesEndpoint(idOrName, setPokemonSpeciesData)
+
+    const toggleFavorite = () => {
+        if (favoritedPokemons.findIndex(i => i === idOrName) === -1) {
+            const added = [idOrName, ...favoritedPokemons]
+            window.localStorage.setItem("favoritedPokemons", JSON.stringify(added))
+            setFavoritedPokemons(added)
+        } else {
+            const filtered = favoritedPokemons.filter(i => i !== idOrName)
+            window.localStorage.setItem("favoritedPokemons", JSON.stringify(filtered))
+            setFavoritedPokemons([...filtered])
+        }
+    }
 
     const ContentCardAbout = () => {
         return (
@@ -59,11 +75,18 @@ export default function PokemonCard({ idOrName }) {
                         <path stroke="currentColor" fill="currentColor" d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z" />
                     </svg>
                 </button>
-                <button className="pokemon-card__nav__button--like pokemon-card__nav__button">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                        <path fill="none" d="M0 0H24V24H0z" />
-                        <path stroke="currentColor" fill="currentColor" d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228zm6.826 1.641c-1.5-1.502-3.92-1.563-5.49-.153l-1.335 1.198-1.336-1.197c-1.575-1.412-3.99-1.35-5.494.154-1.49 1.49-1.565 3.875-.192 5.451L12 18.654l7.02-7.03c1.374-1.577 1.299-3.959-.193-5.454z" />
-                    </svg>
+                <button className="pokemon-card__nav__button--like pokemon-card__nav__button" onClick={() => toggleFavorite()}>
+                    {favoritedPokemons.findIndex(i => i === idOrName) === -1 ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="none" d="M0 0H24V24H0z" />
+                            <path stroke="currentColor" fill="currentColor" d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228zm6.826 1.641c-1.5-1.502-3.92-1.563-5.49-.153l-1.335 1.198-1.336-1.197c-1.575-1.412-3.99-1.35-5.494.154-1.49 1.49-1.565 3.875-.192 5.451L12 18.654l7.02-7.03c1.374-1.577 1.299-3.959-.193-5.454z" />
+                        </svg>
+                    ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="none" d="M0 0H24V24H0z" />
+                            <path fill="currentColor" d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228z" />
+                        </svg>
+                    )}
                 </button>
             </div>
 
@@ -85,7 +108,7 @@ export default function PokemonCard({ idOrName }) {
                 <img src={pokemonData.sprites.other["official-artwork"].front_default} alt={`${pokemonData.name} official artwork`} className="pokemon-card__image-i" />
             </div>
 
-            <div className="pokemon-card__body">
+            <div className="pokemon-card__body" style={{ "--font-size": pokemonSpeciesData.flavor_text_entries[1].flavor_text.length > 120 ? "0.8rem" : "0.9rem" }}>
                 <div className="pokemon-card__body__nav">
                     <button className="pokemon-card__body__nav-i">About</button>
                     <button className="pokemon-card__body__nav-i">Base stats</button>

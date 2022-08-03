@@ -4,5 +4,5 @@ export default function padZero(number) {
         arr.push("0")
     }
     arr.push(number.toString().split(""))
-    return arr.join("")
+    return arr.join("").replaceAll(",","")
 }

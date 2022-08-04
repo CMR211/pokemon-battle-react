@@ -3,8 +3,7 @@ import React from "react"
 import usePokemonEndpoint from "../utilities/usePokemonEndpoint"
 import usePokemonSpeciesEndpoint from "../utilities/usePokemonSpeciesEndpoint"
 
-import iconLike from "../icons/heart-line.svg"
-import iconBack from "../icons/arrow-go-back-fill.svg"
+import { COLORS } from "../utilities/COLORS"
 
 import pokemonHeight from "../utilities/pokemonHeight"
 import pokemonWeight from "../utilities/pokemonWeight"
@@ -12,28 +11,21 @@ import capitalize from "../utilities/capitalize"
 import padZero from "../utilities/padZero"
 import { useParams } from "react-router-dom"
 
-const COLORS = {
-    green: "rgb(79, 193, 166)",
-    red: "rgb(247, 120, 107)",
-    blue: "rgb(88, 170, 246)",
-    yellow: "rgb(255, 206, 75)",
-    purple: "rgb(124, 83, 140)",
-    brown: "rgb(177, 115, 108)",
-    gray: "rgb(160, 160, 160)",
-    white: "rgb(240, 240, 240)",
-    pink: "rgb(248, 144, 200)",
-}
-
 export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons }) {
     let { id } = useParams()
     const idOrName = id || 1
 
-    const [contentCard, setContentCard] = React.useState(0)
+    const [contentCard, setContentCard] = React.useState(1)
     const [pokemonData, setPokemonData] = React.useState(null)
     const [pokemonSpeciesData, setPokemonSpeciesData] = React.useState(null)
 
     usePokemonEndpoint(idOrName, setPokemonData)
     usePokemonSpeciesEndpoint(idOrName, setPokemonSpeciesData)
+
+    const shortcuts = {
+        underlineVisible: "solid 3px currentColor",
+        underlineHidden: "solid 3px transparent",
+    }
 
     const toggleFavorite = () => {
         if (favoritedPokemons.findIndex(i => i === idOrName) === -1) {
@@ -62,6 +54,23 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
                     </div>
                 </div>
             </>
+        )
+    }
+
+    const ContentCardBaseStats = () => {
+        return (
+            <div className="pokemon-card__body__stats">
+                {pokemonData.stats.map((stat, index) => {
+                    const colorStr = COLORS[Object.keys(COLORS)[index]]
+                    return (
+                        <div className="pokemon-card__body__stat" style={{ "--bg-color": `rgba(${colorStr.slice(4, colorStr.length - 1)}, 0.3)` }}>
+                            <p>{capitalize(stat.stat.name.replaceAll("-", " ").replaceAll("special", "sp.").replace("hp", "HP"))}</p>
+                            <p>{stat.base_stat}</p>
+                        </div>
+                    )
+                })}
+                <p className="pokemon-card__body__stat--total">Total: {pokemonData.stats.reduce((p, c) => p + c.base_stat, 0)}</p>
+            </div>
         )
     }
 
@@ -110,12 +119,21 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
 
             <div className="pokemon-card__body" style={{ "--font-size": pokemonSpeciesData.flavor_text_entries[1].flavor_text.length > 120 ? "0.8rem" : "0.9rem" }}>
                 <div className="pokemon-card__body__nav">
-                    <button className="pokemon-card__body__nav-i">About</button>
-                    <button className="pokemon-card__body__nav-i">Base stats</button>
-                    <button className="pokemon-card__body__nav-i">Evolution</button>
-                    <button className="pokemon-card__body__nav-i">Moves</button>
+                    <button onClick={() => setContentCard(0)} style={{ "--underline": contentCard === 0 ? shortcuts.underlineVisible : shortcuts.underlineHidden }} className="pokemon-card__body__nav-i">
+                        About
+                    </button>
+                    <button onClick={() => setContentCard(1)} style={{ "--underline": contentCard === 1 ? shortcuts.underlineVisible : shortcuts.underlineHidden }} className="pokemon-card__body__nav-i">
+                        Base stats
+                    </button>
+                    <button onClick={() => setContentCard(2)} style={{ "--underline": contentCard === 2 ? shortcuts.underlineVisible : shortcuts.underlineHidden }} className="pokemon-card__body__nav-i">
+                        Evolution
+                    </button>
+                    <button onClick={() => setContentCard(3)} style={{ "--underline": contentCard === 3 ? shortcuts.underlineVisible : shortcuts.underlineHidden }} className="pokemon-card__body__nav-i">
+                        Moves
+                    </button>
                 </div>
                 <div className="pokemon-card__body__content">{contentCard === 0 ? <ContentCardAbout /> : ""}</div>
+                <div className="pokemon-card__body__content">{contentCard === 1 ? <ContentCardBaseStats /> : ""}</div>
             </div>
         </div>
     )

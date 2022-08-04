@@ -6,11 +6,12 @@ import "./styles/index.css"
 
 function App() {
     const [favoritedPokemons, setFavoritedPokemons] = useState([])
+    
     useEffect(() => {
         const fp = JSON.parse(window.localStorage.getItem("favoritedPokemons"))
-        console.log(fp)
         if (fp) setFavoritedPokemons(fp)
     }, [])
+
     return (
         <Routes>
             <Route path="/" element={<PokemonCard idOrName={1} favoritedPokemons={favoritedPokemons} setFavoritedPokemons={setFavoritedPokemons} />} />

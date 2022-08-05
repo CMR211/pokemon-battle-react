@@ -80,7 +80,7 @@
         line-height: 2;
         font-size: var(--font-size);
         text-align: justify;
-        height: 20rem;
+        height: 23rem;
         background-color: white;
         border-radius: $border-radius;
         padding: $padding;
@@ -100,15 +100,18 @@
             }
         }
         &__weight {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr 3fr;
+            align-items: center;
             padding-top: 1rem;
             margin: 1rem 0;
             border-top: 1px solid rgba(black, 0.05);
             & p:first-of-type {
                 color: $clr-gray;
                 font-size: 0.8rem;
+            }
+            & svg {
+                margin-right: -2rem;
             }
         }
         &__stats {
@@ -118,7 +121,7 @@
             margin-top: 2rem;
         }
         &__stat {
-            padding: 0.2rem 0.7rem;
+            padding: 0.6rem 0.7rem;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -134,6 +137,42 @@
             }
             & p:nth-of-type(2) {
                 font-weight: 700;
+            }
+        }
+        &__evolutions {
+            display: flex;
+            flex-direction: column;
+            margin-top: 1.5rem;
+            gap: 1rem;
+        }
+        &__evolution {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            gap: 0.5rem;
+            & svg {
+                width: 40px;
+                color:rgba(black, 0.1)
+            }
+            & div {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                & p {
+                    margin-top: -1rem;
+                }
+            }
+            & div:nth-of-type(2) p {
+                margin-top: 0;
+                margin-bottom: -1rem;
+                color:rgba(black, 0.4);
+                font-weight: 700;
+            }
+            & div:nth-of-type(2n + 1) {
+                background-color: rgba(black, 0.05);
+                border-radius: 1rem;
             }
         }
     }

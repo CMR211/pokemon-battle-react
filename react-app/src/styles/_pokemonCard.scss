@@ -153,26 +153,29 @@
             gap: 0.5rem;
             & svg {
                 width: 40px;
-                color:rgba(black, 0.1)
+                color: rgba(black, 0.1);
             }
-            & div {
+            &__pokemon {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                transition: 300ms;
                 & p {
                     margin-top: -1rem;
+                }
+                cursor: pointer;
+                background-color: rgba(black, 0.05);
+                border-radius: 1rem;
+                &:hover {
+                    background-color: rgba(black, 0.15);
                 }
             }
             & div:nth-of-type(2) p {
                 margin-top: 0;
                 margin-bottom: -1rem;
-                color:rgba(black, 0.4);
+                color: rgba(black, 0.4);
                 font-weight: 700;
-            }
-            & div:nth-of-type(2n + 1) {
-                background-color: rgba(black, 0.05);
-                border-radius: 1rem;
             }
         }
     }

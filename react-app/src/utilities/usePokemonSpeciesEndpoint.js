@@ -17,6 +17,6 @@ export default function usePokemonSpeciesEndpoint(idOrName, setData, setEvoData)
             })
             setEvoData(evoData.data)
         },
-        []
+        [idOrName]
     )
 }

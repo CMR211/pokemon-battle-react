@@ -1,5 +1,5 @@
 import React from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate, useLocation } from "react-router-dom"
 
 // Fetching scripts
 import usePokemonEndpoint from "../utilities/usePokemonEndpoint"
@@ -28,12 +28,12 @@ import IconWeight from "../icons/IconWeight"
 import IconFemale from "../icons/IconFemale"
 import IconMale from "../icons/IconMale"
 
-export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons }) {
+export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, }) {
     // Get pokemon id from current url parameter
     let { id } = useParams()
 
     // Fallback on no id, legacy idOrName
-    const idOrName = id || 1
+    const [idOrName, setIdOrName] = React.useState(id)
 
     // Current body content displayed
     // 0 - About, 1 - Stats, 2 - Evolutions, 3 - Moves
@@ -43,6 +43,11 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
     const [pokemonData, setPokemonData] = React.useState(null)
     const [pokemonSpeciesData, setPokemonSpeciesData] = React.useState(null)
     const [pokemonEvolutionData, setPokemonEvolutionData] = React.useState(null)
+
+    const location = useLocation()
+    React.useEffect(() => {
+        setIdOrName(id)
+    }, [location.pathname, id, idOrName])
 
     // UseEffect fetching
     usePokemonEndpoint(idOrName, setPokemonData)
@@ -66,6 +71,12 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
             window.localStorage.setItem("favoritedPokemons", JSON.stringify(filtered))
             setFavoritedPokemons([...filtered])
         }
+    }
+
+    const navigate = useNavigate()
+    const goToPokemon = inputId => {
+        navigate(`/pokemon/${inputId}`)
+        setIdOrName(inputId)
     }
 
     // Card 0
@@ -111,7 +122,7 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
                 {pokemonData.stats.map((stat, index) => {
                     const colorStr = COLORS[Object.keys(COLORS)[index]]
                     return (
-                        <div className="pokemon-card__body__stat" style={{ "--bg-color": `rgba(${colorStr.slice(4, colorStr.length - 1)}, 0.3)` }}>
+                        <div key={index} className="pokemon-card__body__stat" style={{ "--bg-color": `rgba(${colorStr.slice(4, colorStr.length - 1)}, 0.3)` }}>
                             <p>{capitalize(stat.stat.name.replaceAll("-", " ").replaceAll("special", "sp.").replace("hp", "HP"))}</p>
                             <p>{stat.base_stat}</p>
                         </div>
@@ -125,22 +136,21 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
     // Card 2
     const ContentCardEvolution = () => {
         const evolutions = getEvolutions(pokemonEvolutionData)
-        console.log(evolutions)
-        const mappedEvolutions = evolutions.map(evolution => {
+        const mappedEvolutions = evolutions.map((evolution, index) => {
             if (evolution === "none") return ""
             return (
-                <div className="pokemon-card__body__evolution">
-                    <div>
-                        <img src={evolution.baseUrl} alt={evolution.base} />
-                        <p>{capitalize(evolution.base)}</p>
+                <div key={index} className="pokemon-card__body__evolution">
+                    <div className="pokemon-card__body__evolution__pokemon" onClick={() => goToPokemon(evolution.base.id)}>
+                        <img src={evolution.base.url} alt={evolution.base.name} />
+                        <p>{capitalize(evolution.base.name)}</p>
                     </div>
                     <div className="pokemon-card__body__evolution__arrow">
                         <p>{evolution.level > 0 ? "Lvl " + evolution.level : ""}</p>
                         <IconArrow />
                     </div>
-                    <div>
-                        <img src={evolution.targetUrl} alt={evolution.target} />
-                        <p>{capitalize(evolution.target)}</p>
+                    <div className="pokemon-card__body__evolution__pokemon" onClick={() => goToPokemon(evolution.target.id)}>
+                        <img src={evolution.target.url} alt={evolution.target.name} />
+                        <p>{capitalize(evolution.target.name)}</p>
                     </div>
                 </div>
             )
@@ -166,7 +176,7 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
                 <div className="pokemon-card__hero__pokemon-types-c">
                     {pokemonData.types.map(item => {
                         return (
-                            <div className="pokemon-card__hero__pokemon-types-i" id={item.type.name}>
+                            <div key={item.type.name} className="pokemon-card__hero__pokemon-types-i" id={item.type.name}>
                                 {item.type.name}
                             </div>
                         )

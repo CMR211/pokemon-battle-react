@@ -14,7 +14,7 @@ function App() {
 
     return (
         <Routes>
-            <Route path="/" element={<PokemonCard idOrName={1} favoritedPokemons={favoritedPokemons} setFavoritedPokemons={setFavoritedPokemons} />} />
+            {/* <Route path="/" element={<PokemonCard favoritedPokemons={favoritedPokemons} setFavoritedPokemons={setFavoritedPokemons} />} /> */}
             <Route path="/pokemon/:id" element={<PokemonCard favoritedPokemons={favoritedPokemons} setFavoritedPokemons={setFavoritedPokemons} />} />
         </Routes>
     )

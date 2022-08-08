@@ -279,7 +279,7 @@ button {
   color: rgba(0, 0, 0, 0.1);
 }
 
-.pokemon-card__body__evolution div {
+.pokemon-card__body__evolution__pokemon {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -293,10 +293,19 @@ button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 1rem;
 }
 
-.pokemon-card__body__evolution div p {
+.pokemon-card__body__evolution__pokemon p {
   margin-top: -1rem;
+}
+
+.pokemon-card__body__evolution__pokemon:hover {
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
 .pokemon-card__body__evolution div:nth-of-type(2) p {
@@ -304,10 +313,5 @@ button {
   margin-bottom: -1rem;
   color: rgba(0, 0, 0, 0.4);
   font-weight: 700;
-}
-
-.pokemon-card__body__evolution div:nth-of-type(2n + 1) {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 1rem;
 }
 /*# sourceMappingURL=index.css.map */

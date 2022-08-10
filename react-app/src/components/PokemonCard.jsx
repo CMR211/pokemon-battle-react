@@ -28,7 +28,7 @@ import IconWeight from "../icons/IconWeight"
 import IconFemale from "../icons/IconFemale"
 import IconMale from "../icons/IconMale"
 
-export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, }) {
+export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons }) {
     // Get pokemon id from current url parameter
     let { id } = useParams()
 
@@ -62,19 +62,19 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, }
     // Toggles current pokemon "liked" status.
     // Liked pokemons id stored in <App /> state and in LocalStorage.
     const toggleFavorite = () => {
-        if (favoritedPokemons.findIndex(i => i === idOrName) === -1) {
+        if (favoritedPokemons.findIndex((i) => i === idOrName) === -1) {
             const added = [idOrName, ...favoritedPokemons]
             window.localStorage.setItem("favoritedPokemons", JSON.stringify(added))
             setFavoritedPokemons(added)
         } else {
-            const filtered = favoritedPokemons.filter(i => i !== idOrName)
+            const filtered = favoritedPokemons.filter((i) => i !== idOrName)
             window.localStorage.setItem("favoritedPokemons", JSON.stringify(filtered))
             setFavoritedPokemons([...filtered])
         }
     }
 
     const navigate = useNavigate()
-    const goToPokemon = inputId => {
+    const goToPokemon = (inputId) => {
         navigate(`/pokemon/${inputId}`)
         setIdOrName(inputId)
     }
@@ -83,7 +83,9 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, }
     const ContentCardAbout = () => {
         return (
             <>
-                <p className="pokemon-card__body__content">{pokemonSpeciesData["flavor_text_entries"][1]["flavor_text"].replace("\f", " ")}</p>
+                <p className="pokemon-card__body__content">
+                    {pokemonSpeciesData["flavor_text_entries"][1]["flavor_text"].replace("\f", " ")}
+                </p>
                 <div className="pokemon-card__body__weight">
                     <IconRuler />
                     <div className="pokemon-card__body__weight-i">
@@ -122,13 +124,30 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, }
                 {pokemonData.stats.map((stat, index) => {
                     const colorStr = COLORS[Object.keys(COLORS)[index]]
                     return (
-                        <div key={index} className="pokemon-card__body__stat" style={{ "--bg-color": `rgba(${colorStr.slice(4, colorStr.length - 1)}, 0.3)` }}>
-                            <p>{capitalize(stat.stat.name.replaceAll("-", " ").replaceAll("special", "sp.").replace("hp", "HP"))}</p>
+                        <div
+                            key={index}
+                            className="pokemon-card__body__stat"
+                            style={{
+                                "--bg-color": `rgba(${colorStr.slice(
+                                    4,
+                                    colorStr.length - 1
+                                )}, 0.3)`,
+                            }}>
+                            <p>
+                                {capitalize(
+                                    stat.stat.name
+                                        .replaceAll("-", " ")
+                                        .replaceAll("special", "sp.")
+                                        .replace("hp", "HP")
+                                )}
+                            </p>
                             <p>{stat.base_stat}</p>
                         </div>
                     )
                 })}
-                <p className="pokemon-card__body__stat--total">Total: {pokemonData.stats.reduce((p, c) => p + c.base_stat, 0)}</p>
+                <p className="pokemon-card__body__stat--total">
+                    Total: {pokemonData.stats.reduce((p, c) => p + c.base_stat, 0)}
+                </p>
             </div>
         )
     }
@@ -140,7 +159,9 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, }
             if (evolution === "none") return ""
             return (
                 <div key={index} className="pokemon-card__body__evolution">
-                    <div className="pokemon-card__body__evolution__pokemon" onClick={() => goToPokemon(evolution.base.id)}>
+                    <div
+                        className="pokemon-card__body__evolution__pokemon"
+                        onClick={() => goToPokemon(evolution.base.id)}>
                         <img src={evolution.base.url} alt={evolution.base.name} />
                         <p>{capitalize(evolution.base.name)}</p>
                     </div>
@@ -148,7 +169,9 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, }
                         <p>{evolution.level > 0 ? "Lvl " + evolution.level : ""}</p>
                         <IconArrow />
                     </div>
-                    <div className="pokemon-card__body__evolution__pokemon" onClick={() => goToPokemon(evolution.target.id)}>
+                    <div
+                        className="pokemon-card__body__evolution__pokemon"
+                        onClick={() => goToPokemon(evolution.target.id)}>
                         <img src={evolution.target.url} alt={evolution.target.name} />
                         <p>{capitalize(evolution.target.name)}</p>
                     </div>
@@ -158,15 +181,57 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, }
         return <div className="pokemon-card__body__evolutions">{mappedEvolutions}</div>
     }
 
-    if (pokemonData === null || pokemonSpeciesData === null || pokemonEvolutionData === null) return <p className="asd">Loading</p>
+    const ContentCardGames = () => {
+        const generations = [
+            ["red", "green", "yellow", "blue"], //gen-1
+            ["gold", "silver", "crystal"], //gen-2
+            ["ruby", "sapphire", "emerald", "firered", "leafgreen"], //gen-3
+            ["diamond", "pearl", "platinum", "heartgold", "soulsilver"], //gen-4
+            ["black", "white", "black-2", "white-2"], //gen-5
+        ]
+        const presence = generations.map((generation, index) => {
+            let present = false
+            generation.forEach((version) => {
+                if (
+                    pokemonData.game_indices.some((game_indice) => {
+                        return game_indice.version.name === version
+                    })
+                ) {
+                    present = true
+                }
+            })
+            if (present === true) return `Generation ${index + 1}`
+            if (present === false) return `N/A`
+        })
+        return presence.map((generation, index) => {
+            return (
+                <div key={index} className="pokemon-card__body__game">
+                    <p>{generation}</p>
+                </div>
+            )
+        })
+    }
+
+    if (pokemonData === null || pokemonSpeciesData === null || pokemonEvolutionData === null)
+        return <p className="asd">Loading</p>
     return (
-        <div className="pokemon-card" style={{ "--bg-color": COLORS[pokemonSpeciesData.color.name] }}>
+        <div
+            className="pokemon-card"
+            style={{
+                "--bg-color": COLORS[pokemonSpeciesData.color.name],
+            }}>
             <div className="pokemon-card__nav">
                 <button className="pokemon-card__nav__button--return pokemon-card__nav__button">
                     <IconReturn />
                 </button>
-                <button className="pokemon-card__nav__button--like pokemon-card__nav__button" onClick={() => toggleFavorite()}>
-                    {favoritedPokemons.findIndex(i => i === idOrName) === -1 ? <IconNotLiked /> : <IconLiked />}
+                <button
+                    className="pokemon-card__nav__button--like pokemon-card__nav__button"
+                    onClick={() => toggleFavorite()}>
+                    {favoritedPokemons.findIndex((i) => i === idOrName) === -1 ? (
+                        <IconNotLiked />
+                    ) : (
+                        <IconLiked />
+                    )}
                 </button>
             </div>
 
@@ -174,9 +239,12 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, }
                 <h1 className="pokemon-card__hero__pokemon-name">{capitalize(pokemonData.name)}</h1>
                 <p className="pokemon-card__hero__pokemon-id">{padZero(pokemonData.id)}</p>
                 <div className="pokemon-card__hero__pokemon-types-c">
-                    {pokemonData.types.map(item => {
+                    {pokemonData.types.map((item) => {
                         return (
-                            <div key={item.type.name} className="pokemon-card__hero__pokemon-types-i" id={item.type.name}>
+                            <div
+                                key={item.type.name}
+                                className="pokemon-card__hero__pokemon-types-i"
+                                id={item.type.name}>
                                 {item.type.name}
                             </div>
                         )
@@ -185,27 +253,73 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, }
             </div>
 
             <div className="pokemon-card__image-c">
-                <img src={pokemonData.sprites.other["official-artwork"].front_default} alt={`${pokemonData.name} official artwork`} className="pokemon-card__image-i" />
+                <img
+                    src={pokemonData.sprites.other["official-artwork"].front_default}
+                    alt={`${pokemonData.name} official artwork`}
+                    className="pokemon-card__image-i"
+                />
             </div>
 
-            <div className="pokemon-card__body" style={{ "--font-size": pokemonSpeciesData.flavor_text_entries[1].flavor_text.length > 120 ? "0.8rem" : "0.9rem" }}>
+            <div
+                className="pokemon-card__body"
+                style={{
+                    "--font-size":
+                        pokemonSpeciesData.flavor_text_entries[1].flavor_text.length > 120
+                            ? "0.8rem"
+                            : "0.9rem",
+                }}>
                 <div className="pokemon-card__body__nav">
-                    <button onClick={() => setContentCard(0)} style={{ "--underline": contentCard === 0 ? shortcuts.underlineVisible : shortcuts.underlineHidden }} className="pokemon-card__body__nav-i">
+                    <button
+                        onClick={() => setContentCard(0)}
+                        style={{
+                            "--underline":
+                                contentCard === 0
+                                    ? shortcuts.underlineVisible
+                                    : shortcuts.underlineHidden,
+                        }}
+                        className="pokemon-card__body__nav-i">
                         About
                     </button>
-                    <button onClick={() => setContentCard(1)} style={{ "--underline": contentCard === 1 ? shortcuts.underlineVisible : shortcuts.underlineHidden }} className="pokemon-card__body__nav-i">
+                    <button
+                        onClick={() => setContentCard(1)}
+                        style={{
+                            "--underline":
+                                contentCard === 1
+                                    ? shortcuts.underlineVisible
+                                    : shortcuts.underlineHidden,
+                        }}
+                        className="pokemon-card__body__nav-i">
                         Base stats
                     </button>
-                    <button onClick={() => setContentCard(2)} style={{ "--underline": contentCard === 2 ? shortcuts.underlineVisible : shortcuts.underlineHidden }} className="pokemon-card__body__nav-i">
+                    <button
+                        onClick={() => setContentCard(2)}
+                        style={{
+                            "--underline":
+                                contentCard === 2
+                                    ? shortcuts.underlineVisible
+                                    : shortcuts.underlineHidden,
+                        }}
+                        className="pokemon-card__body__nav-i">
                         Evolution
                     </button>
-                    <button onClick={() => setContentCard(3)} style={{ "--underline": contentCard === 3 ? shortcuts.underlineVisible : shortcuts.underlineHidden }} className="pokemon-card__body__nav-i">
-                        Moves
+                    <button
+                        onClick={() => setContentCard(3)}
+                        style={{
+                            "--underline":
+                                contentCard === 3
+                                    ? shortcuts.underlineVisible
+                                    : shortcuts.underlineHidden,
+                        }}
+                        className="pokemon-card__body__nav-i">
+                        Generations
                     </button>
                 </div>
-                <div className="pokemon-card__body__content">{contentCard === 0 ? <ContentCardAbout /> : ""}</div>
-                <div className="pokemon-card__body__content">{contentCard === 1 ? <ContentCardBaseStats /> : ""}</div>
-                <div className="pokemon-card__body__content">{contentCard === 2 ? <ContentCardEvolution /> : ""}</div>
+                <div className="pokemon-card__body__content">
+                    {contentCard === 0 ? <ContentCardAbout /> : ""}
+                    {contentCard === 1 ? <ContentCardBaseStats /> : ""}
+                    {contentCard === 2 ? <ContentCardEvolution /> : ""}
+                    {contentCard === 3 ? <ContentCardGames /> : ""}
+                </div>
             </div>
         </div>
     )

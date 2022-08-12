@@ -183,6 +183,7 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
         return <div className="pokemon-card__body__evolutions">{mappedEvolutions}</div>
     }
 
+    // Card 3
     const ContentCardGames = () => {
         const generations = [
             ["red", "green", "yellow", "blue"], //gen-1

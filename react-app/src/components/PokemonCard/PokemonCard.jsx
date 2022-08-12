@@ -2,31 +2,33 @@ import React from "react"
 import { useParams, useNavigate, useLocation } from "react-router-dom"
 
 // Fetching scripts
-import usePokemonEndpoint from "../utilities/usePokemonEndpoint"
-import usePokemonSpeciesEndpoint from "../utilities/usePokemonSpeciesEndpoint"
+import usePokemonEndpoint from "../../utilities/usePokemonEndpoint"
+import usePokemonSpeciesEndpoint from "../../utilities/usePokemonSpeciesEndpoint"
 
 // Colors database for background and stats
-import { COLORS } from "../utilities/COLORS"
+import { COLORS } from "../../utilities/COLORS"
 
 // Utility functions
-import capitalize from "../utilities/capitalize"
-import padZero from "../utilities/padZero"
+import capitalize from "../../utilities/capitalize"
+import padZero from "../../utilities/padZero"
 
 // Data handling functions
-import pokemonWeight from "../utilities/pokemonWeight"
-import pokemonHeight from "../utilities/pokemonHeight"
-import getEvolutions from "../utilities/getEvolutions"
-import getGenderInfo from "../utilities/getGenderInfo"
+import pokemonWeight from "../../utilities/pokemonWeight"
+import pokemonHeight from "../../utilities/pokemonHeight"
+import getEvolutions from "../../utilities/getEvolutions"
+import getGenderInfo from "../../utilities/getGenderInfo"
 
-// SCG icons
-import IconArrow from "../icons/IconArrow"
-import IconLiked from "../icons/IconLiked"
-import IconNotLiked from "../icons/IconNotLiked"
-import IconReturn from "../icons/IconReturn"
-import IconRuler from "../icons/IconRuler"
-import IconWeight from "../icons/IconWeight"
-import IconFemale from "../icons/IconFemale"
-import IconMale from "../icons/IconMale"
+// SVG icons
+import IconArrow from "../../icons/IconArrow"
+import IconLiked from "../../icons/IconLiked"
+import IconNotLiked from "../../icons/IconNotLiked"
+import IconReturn from "../../icons/IconReturn"
+import IconRuler from "../../icons/IconRuler"
+import IconWeight from "../../icons/IconWeight"
+import IconFemale from "../../icons/IconFemale"
+import IconMale from "../../icons/IconMale"
+import IconYes from "../../icons/IconYes"
+import IconNo from "../../icons/IconNo"
 
 export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons }) {
     // Get pokemon id from current url parameter
@@ -200,16 +202,34 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
                     present = true
                 }
             })
-            if (present === true) return `Generation ${index + 1}`
-            if (present === false) return `N/A`
+            if (present === true) return [true, `Generation ${index + 1}`]
+            if (present === false) return [false, `Generation ${index + 1}`]
         })
-        return presence.map((generation, index) => {
-            return (
-                <div key={index} className="pokemon-card__body__game">
-                    <p>{generation}</p>
-                </div>
-            )
-        })
+        return (
+            <div className="pokemon-card__body__gen">
+                {presence.map((generation, index) => {
+                    return (
+                        <div key={index} className="pokemon-card__body__gen-c" style={{"opacity": generation[0] === true ? 1 : 0.2}}>
+                            <div className="pokemon-card__body__gen-i1">
+                                {index+1}<br />
+                                {generation[0] === true ? <IconYes /> : <IconNo />}
+                            </div>
+                            <div className="pokemon-card__body__gen-i2">
+                                {generations[index].map((gen) => {
+                                    return (
+                                        <div
+                                            key={gen}
+                                            className={`pokemon-card__body__gen--${gen}`}>
+                                            {capitalize(gen)}
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+        )
     }
 
     if (pokemonData === null || pokemonSpeciesData === null || pokemonEvolutionData === null)

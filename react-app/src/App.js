@@ -1,4 +1,4 @@
-import PokemonCard from "./components/PokemonCard"
+import PokemonCard from "./components/PokemonCard/PokemonCard.jsx"
 import { Routes, Route } from "react-router-dom"
 import { useState, useEffect } from "react"
 

@@ -22,6 +22,7 @@ import ContentCardGames from "./ContentCardGames"
 import IconLiked from "../../icons/IconLiked"
 import IconNotLiked from "../../icons/IconNotLiked"
 import IconReturn from "../../icons/IconReturn"
+import IconLoader from "../../icons/IconLoader"
 
 export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons }) {
     // Get pokemon id from current url parameter
@@ -75,7 +76,7 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
     }
 
     if (pokemonData === null || pokemonSpeciesData === null || pokemonEvolutionData === null)
-        return <p className="asd">Loading</p>
+        return <IconLoader />
     return (
         <div
             className="pokemon-card"

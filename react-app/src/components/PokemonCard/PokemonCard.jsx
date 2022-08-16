@@ -1,5 +1,6 @@
 import React from "react"
 import { useParams, useNavigate, useLocation } from "react-router-dom"
+import { AnimatePresence } from "framer-motion"
 
 // Fetching scripts
 import usePokemonEndpoint from "../../utilities/usePokemonEndpoint"
@@ -75,8 +76,7 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
         setIdOrName(inputId)
     }
 
-    if (pokemonData === null || pokemonSpeciesData === null || pokemonEvolutionData === null)
-        return <IconLoader />
+    if (pokemonData === null || pokemonSpeciesData === null || pokemonEvolutionData === null) return <IconLoader />
     return (
         <div
             className="pokemon-card"
@@ -155,17 +155,17 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
                 </div>
                 <div className="pokemon-card__body__content">
                     {contentCard === 0 ? (
-                        <ContentCardAbout pokemonData={pokemonData} pokemonSpeciesData={pokemonSpeciesData} />
+                            <ContentCardAbout contentCard={contentCard} pokemonData={pokemonData} pokemonSpeciesData={pokemonSpeciesData} />
                     ) : (
                         ""
                     )}
-                    {contentCard === 1 ? <ContentCardBaseStats pokemonData={pokemonData} /> : ""}
+                    {contentCard === 1 ? <ContentCardBaseStats contentCard={contentCard} pokemonData={pokemonData} /> : ""}
                     {contentCard === 2 ? (
-                        <ContentCardEvolution pokemonEvolutionData={pokemonEvolutionData} goToPokemon={goToPokemon} />
+                        <ContentCardEvolution contentCard={contentCard} pokemonEvolutionData={pokemonEvolutionData} goToPokemon={goToPokemon} />
                     ) : (
                         ""
                     )}
-                    {contentCard === 3 ? <ContentCardGames pokemonData={pokemonData} /> : ""}
+                    {contentCard === 3 ? <ContentCardGames contentCard={contentCard} pokemonData={pokemonData} /> : ""}
                 </div>
             </div>
         </div>

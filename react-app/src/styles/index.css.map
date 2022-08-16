@@ -4,7 +4,8 @@
     "sources": [
         "index.scss",
         "_globals.scss",
-        "_pokemonCard.scss"
+        "_pokemonCard.scss",
+        "_pokedex.scss"
     ],
     "names": [],
     "file": "index.css"

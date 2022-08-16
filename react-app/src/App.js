@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 import "./styles/index.css"
+import Pokedex from "./components/Pokedex/Pokedex.jsx"
 
 function App() {
     const [favoritedPokemons, setFavoritedPokemons] = useState([])
@@ -14,7 +15,7 @@ function App() {
 
     return (
         <Routes>
-            {/* <Route path="/" element={<PokemonCard favoritedPokemons={favoritedPokemons} setFavoritedPokemons={setFavoritedPokemons} />} /> */}
+            <Route path="/" element={<Pokedex favoritedPokemons={favoritedPokemons} setFavoritedPokemons={setFavoritedPokemons} />} />
             <Route path="/pokemon/:id" element={<PokemonCard favoritedPokemons={favoritedPokemons} setFavoritedPokemons={setFavoritedPokemons} />} />
         </Routes>
     )

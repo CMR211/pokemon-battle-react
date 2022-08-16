@@ -337,7 +337,8 @@ button {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  background-color: rgba(20, 20, 20, 0.02);
+  -webkit-box-shadow: 5px 5px 60px 0 rgba(20, 20, 20, 0.03);
+          box-shadow: 5px 5px 60px 0 rgba(20, 20, 20, 0.03);
   border-radius: 0.5rem;
   padding: 0.25rem;
 }
@@ -365,9 +366,9 @@ button {
   display: grid;
   -ms-grid-rows: (1fr)[5];
       grid-template-rows: repeat(5, 1fr);
-  gap: 1em;
+  gap: 1.5em;
   width: 100%;
-  margin-bottom: 0.4rem;
+  margin-bottom: 1.2rem;
 }
 
 .pokemon-card__body__gen-i2 > div {
@@ -384,13 +385,16 @@ button {
           justify-content: center;
   font-size: 0.4rem;
   text-transform: uppercase;
-  -webkit-transition: 300ms ease-in-out;
-  transition: 300ms ease-in-out;
+  -webkit-transition: 100ms ease-in-out;
+  transition: 100ms ease-in-out;
+  cursor: default;
 }
 
 .pokemon-card__body__gen-i2 > div:hover {
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
+  -webkit-transform: scale(3);
+          transform: scale(3);
+  background-color: white;
+  outline: 1px solid #a0a0a0;
 }
 
 .pokemon-card__body__gen--red {

@@ -6,16 +6,32 @@
     }
 }
 
-.pokedex__list {
+.pokedex__list>div {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px;
+}
+
+.pokedex__list{
     padding: $padding;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    overflow-y: scroll;
-    scrollbar-width: 1px;
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px;
+    overflow-y: auto;
+    /* scrollbar hide */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    &::-webkit-scrollbar {
+        /* WebKit */
+        width: 0;
+        height: 0;
+    }
+    scroll-snap-type: y mandatory;
 }
 
 .pokedex__pokemon {
+    scroll-snap-align: start;
+    height: 150px;
     background-color: var(--bg-color);
     display: grid;
     grid-template-columns: 4fr 1fr;

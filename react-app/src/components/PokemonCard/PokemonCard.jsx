@@ -28,12 +28,10 @@ import IconLoader from "../../icons/IconLoader"
 export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons }) {
     // Get pokemon id from current url parameter
     let { id } = useParams()
-
-    // Fallback on no id, legacy idOrName
     const [idOrName, setIdOrName] = React.useState(id)
 
     // Current body content displayed
-    // 0 - About, 1 - Stats, 2 - Evolutions, 3 - Moves
+    // 0 - About, 1 - Stats, 2 - Evolutions, 3 - Generations
     const [contentCard, setContentCard] = React.useState(2)
 
     // States for fetched PokemonAPI data
@@ -41,6 +39,7 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
     const [pokemonSpeciesData, setPokemonSpeciesData] = React.useState(null)
     const [pokemonEvolutionData, setPokemonEvolutionData] = React.useState(null)
 
+    // On window location change (after user input or redirect) rerender the card with proper pokemon data
     const location = useLocation()
     React.useEffect(() => {
         setIdOrName(id)
@@ -70,12 +69,14 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
         }
     }
 
+    // Function to navigate to another pokemon (used mainly in evolution tab)
     const navigate = useNavigate()
     const goToPokemon = (inputId) => {
         navigate(`/pokemon/${inputId}`)
         setIdOrName(inputId)
     }
 
+    // Check if data has been fetched otherwise show the loader icon
     if (pokemonData === null || pokemonSpeciesData === null || pokemonEvolutionData === null) return <IconLoader />
     return (
         <div
@@ -119,6 +120,7 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
                 style={{
                     "--font-size": pokemonSpeciesData.flavor_text_entries[1].flavor_text.length > 120 ? "0.8rem" : "0.9rem",
                 }}>
+
                 <div className="pokemon-card__body__nav">
                     <button
                         onClick={() => setContentCard(0)}
@@ -153,15 +155,24 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
                         Generations
                     </button>
                 </div>
+                
                 <div className="pokemon-card__body__content">
                     {contentCard === 0 ? (
-                            <ContentCardAbout contentCard={contentCard} pokemonData={pokemonData} pokemonSpeciesData={pokemonSpeciesData} />
+                        <ContentCardAbout
+                            contentCard={contentCard}
+                            pokemonData={pokemonData}
+                            pokemonSpeciesData={pokemonSpeciesData}
+                        />
                     ) : (
                         ""
                     )}
                     {contentCard === 1 ? <ContentCardBaseStats contentCard={contentCard} pokemonData={pokemonData} /> : ""}
                     {contentCard === 2 ? (
-                        <ContentCardEvolution contentCard={contentCard} pokemonEvolutionData={pokemonEvolutionData} goToPokemon={goToPokemon} />
+                        <ContentCardEvolution
+                            contentCard={contentCard}
+                            pokemonEvolutionData={pokemonEvolutionData}
+                            goToPokemon={goToPokemon}
+                        />
                     ) : (
                         ""
                     )}

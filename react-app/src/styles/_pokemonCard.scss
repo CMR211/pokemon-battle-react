@@ -1,26 +1,8 @@
 .pokemon-card {
-    $padding: 2rem;
-    $width: 25rem;
-    display: flex;
-    flex-direction: column;
-    width: $width;
+    @include Card;
     background-color: var(--bg-color);
-    border-radius: $border-radius;
-    box-shadow: 5px 5px 10px 4px rgba(black, 0.1);
     &__nav {
-        padding: 1rem $padding;
-        display: flex;
-        justify-content: space-between;
-        & * {
-            width: 20px;
-            color: inherit;
-            cursor: pointer;
-            transform: scale(1);
-            transition: 300ms;
-            &:hover {
-                transform: scale(1.1);
-            }
-        }
+        @include Nav;
     }
     &__hero {
         padding: 0 $padding;

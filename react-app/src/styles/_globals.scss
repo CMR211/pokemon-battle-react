@@ -1,4 +1,6 @@
 $border-radius: 1rem;
+$padding: 2rem;
+$width: 25rem;
 
 $clr-red: rgb(247, 120, 107);
 $clr-brown: rgb(177, 115, 108);
@@ -20,9 +22,9 @@ $clr-leafgreen: rgb(166, 204, 59);
 $clr-pearl: rgb(142, 87, 142);
 $clr-diamond: rgb(68, 144, 157);
 $clr-platinum: rgb(229, 228, 226);
-$clr-heartgold:rgb(254, 221, 81);
+$clr-heartgold: rgb(254, 221, 81);
 $clr-soulsilver: rgb(192, 192, 192);
-$clr-black: rgb(20,20,20);
+$clr-black: rgb(20, 20, 20);
 
 *,
 *:after,
@@ -30,8 +32,6 @@ $clr-black: rgb(20,20,20);
     margin: 0;
     box-sizing: border-box;
 }
-
-
 
 body {
     display: flex;
@@ -57,4 +57,29 @@ button {
     font-family: inherit;
     font-style: inherit;
     padding: 0;
+}
+
+@mixin Card {
+    display: flex;
+    flex-direction: column;
+    border-radius: $border-radius;
+    box-shadow: 5px 5px 10px 4px rgba(black, 0.1);
+    width: $width;
+    height: 44.1rem;
+}
+
+@mixin Nav {
+    padding: 1rem $padding;
+    display: flex;
+    justify-content: space-between;
+    & * {
+        width: 20px;
+        color: inherit;
+        cursor: pointer;
+        transform: scale(1);
+        transition: 300ms;
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
 }

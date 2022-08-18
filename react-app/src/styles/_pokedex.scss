@@ -1,0 +1,32 @@
+.pokedex {
+    @include Card;
+    background-color: white;
+    &__nav {
+        @include Nav;
+    }
+}
+
+.pokedex__list {
+    padding: $padding;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    overflow-y: scroll;
+    scrollbar-width: 1px;
+}
+
+.pokedex__pokemon {
+    background-color: var(--bg-color);
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 1rem;
+    &__img-c {
+        display: flex;
+        grid-column: span 2;
+        align-items: center;
+        justify-content: center;
+    }
+}

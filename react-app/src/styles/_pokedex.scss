@@ -4,6 +4,9 @@
     &__nav {
         @include Nav;
     }
+    &__hero {
+        padding-left: $padding;
+    }
 }
 
 .pokedex__list > div {
@@ -13,6 +16,7 @@
     gap: $gap;
     align-items: center;
     justify-content: center;
+    padding-top: 1rem;
 }
 
 .pokedex__list {
@@ -36,6 +40,7 @@
     justify-content: center;
     border-radius: 1rem;
     position: relative;
+    transition: 300ms;
     &__img-c {
         height: 96px;
         aspect-ratio: 1;
@@ -72,5 +77,9 @@
         color: rgba(white, 0.75);
         font-weight: 700;
         font-size: 1.1rem;
+    }
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.05);
     }
 }

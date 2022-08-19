@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import axios from "axios"
 import InfiniteScroll from "react-infinite-scroller"
 
@@ -16,7 +16,6 @@ export default function Pokedex() {
     const [pokemons, setPokemons] = useState([])
     const [nextPage, setNextPage] = useState("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=40")
     const [pokemonColors, setPokemonColors] = useState(null)
-    const [input, setInput] = useState("")
 
     // Fetch function for InfiniteScroll
     const fetchData = async (url) => {
@@ -41,12 +40,6 @@ export default function Pokedex() {
     // Fetching pokemon colors for the backgrounds
     usePokemonColors(setPokemonColors)
 
-    const filterPokemons = (e) => {
-        setInput(e.target.value)
-        const filteredPokemons = pokemons.filter(pokemon => pokemon.id === e.target.value || pokemon.name === e.target.value)
-        setPokemons(filteredPokemons)
-    }
-
     if (pokemonColors === null) return <IconLoader />
     return (
         <div className="pokedex">
@@ -60,10 +53,6 @@ export default function Pokedex() {
             </div>
             <div className="pokedex__hero">
                 <h1>Pokedex</h1>
-                <div className="pokedex__her__search">
-                    <p>Search by name or ID</p>
-                    <input name="nameOrId" type="text" onChange={filterPokemons} value={input} />
-                </div>
             </div>
             <div className="pokedex__list">
                 <InfiniteScroll

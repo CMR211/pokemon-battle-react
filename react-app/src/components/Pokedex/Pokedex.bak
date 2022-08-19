@@ -16,6 +16,8 @@ export default function Pokedex() {
     const [pokemons, setPokemons] = useState([])
     const [nextPage, setNextPage] = useState("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=40")
     const [pokemonColors, setPokemonColors] = useState(null)
+    const [filteredPokemons, setFilteredPokemons] = useState([])
+    const [inputValue, setInputValue] = useState("")
 
     // Fetch function for InfiniteScroll
     const fetchData = async (url) => {
@@ -40,6 +42,14 @@ export default function Pokedex() {
     // Fetching pokemon colors for the backgrounds
     usePokemonColors(setPokemonColors)
 
+    const filterPokemons = (e) => {
+        const val = e.target.value
+        setInputValue(val)
+        const pks = pokemons.filter(pokemon =>  pokemon.name === val)
+        console.log(pks)
+        setFilteredPokemons(pks)
+    }
+
     if (pokemonColors === null) return <IconLoader />
     return (
         <div className="pokedex">
@@ -53,6 +63,9 @@ export default function Pokedex() {
             </div>
             <div className="pokedex__hero">
                 <h1>Pokedex</h1>
+                <div>
+                    <input type="text" onChange={filterPokemons} value={inputValue} />
+                </div>
             </div>
             <div className="pokedex__list">
                 <InfiniteScroll
@@ -65,7 +78,7 @@ export default function Pokedex() {
                         </div>
                     }
                     useWindow={false}>
-                    {pokemons.map((pokemon) => {
+                    {filteredPokemons.map((pokemon) => {
                         const bgColor = pokemonColors.find((color) => color.id === pokemon.id).color
                         return (
                             <div

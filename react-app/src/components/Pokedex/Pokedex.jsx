@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import InfiniteScroll from "react-infinite-scroller"
+import {useNavigate} from "react-router-dom"
 
 import usePokemonColors from "../../utilities/usePokemonColors"
 
@@ -11,40 +11,61 @@ import IconLoader from "../../icons/IconLoader"
 import { COLORS } from "../../utilities/COLORS"
 import padZero from "../../utilities/padZero"
 import capitalize from "../../utilities/capitalize"
+import IconNo from "../../icons/IconNo"
 
 export default function Pokedex() {
     const [pokemons, setPokemons] = useState([])
-    const [nextPage, setNextPage] = useState("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=40")
     const [pokemonColors, setPokemonColors] = useState(null)
+    const [filteredPokemons, setFilteredPokemons] = useState([])
     const [input, setInput] = useState("")
 
     // Fetch function for InfiniteScroll
     const fetchData = async (url) => {
         const { data } = await axios.get(url)
-        const newPokemons = data.results.map((pokemon) => {
+        const pokemonList = data.results.map((pokemon) => {
             // https://pokeapi.co/api/v2/pokemon/6/
             const id = pokemon.url.replace("https://pokeapi.co/api/v2/pokemon/", "").replace("/", "")
             return {
                 id: id,
-                name: pokemon.name,
+                name: pokemon.name.slice(0, 15),
                 img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`,
             }
         })
-        setPokemons((prev) => {
-            const ids = prev.map((i) => i.id)
-            const toAdd = newPokemons.filter((newPokemon) => !ids.includes(newPokemon.id))
-            return [...prev, ...toAdd]
-        })
-        setNextPage(data.next)
+        setPokemons(pokemonList)
     }
+
+    useEffect(
+        () => async () => {
+            fetchData("https://pokeapi.co/api/v2/pokemon?limit=649")
+            console.log("pokemons", pokemons)
+        },
+        []
+    )
 
     // Fetching pokemon colors for the backgrounds
     usePokemonColors(setPokemonColors)
 
+    useEffect(() => {
+        setFilteredPokemons(pokemons)
+    }, [pokemons])
+
     const filterPokemons = (e) => {
         setInput(e.target.value)
-        const filteredPokemons = pokemons.filter(pokemon => pokemon.id === e.target.value || pokemon.name === e.target.value)
-        setPokemons(filteredPokemons)
+        const filteredPokemons = pokemons.filter(
+            (pokemon) => pokemon.id.includes(e.target.value) || pokemon.name.includes(e.target.value)
+        )
+        console.log("filtered pokemons", filteredPokemons)
+        setFilteredPokemons(filteredPokemons)
+    }
+
+    const clearInput = () => { 
+        setInput("")
+        setFilteredPokemons(pokemons)
+    }
+
+    const navigate = useNavigate()
+    const goToPokemon = (inputId) => {
+        navigate(`/pokemon/${inputId}`)
     }
 
     if (pokemonColors === null) return <IconLoader />
@@ -62,24 +83,19 @@ export default function Pokedex() {
                 <h1>Pokedex</h1>
                 <div className="pokedex__her__search">
                     <p>Search by name or ID</p>
-                    <input name="nameOrId" type="text" onChange={filterPokemons} value={input} />
+                    <input name="nameOrId" type="text" onInput={filterPokemons} value={input} />
+                    <button onClick={clearInput}><IconNo /></button>
                 </div>
             </div>
+            <div className="bar"></div>
             <div className="pokedex__list">
-                <InfiniteScroll
-                    pageStart={0}
-                    loadMore={() => fetchData(nextPage)}
-                    hasMore={nextPage === null ? false : true}
-                    loader={
-                        <div className="loader" key={0}>
-                            <IconLoader />
-                        </div>
-                    }
-                    useWindow={false}>
-                    {pokemons.map((pokemon) => {
+                <div>
+                    {filteredPokemons.map((pokemon) => {
                         const bgColor = pokemonColors.find((color) => color.id === pokemon.id).color
                         return (
                             <div
+                                onClick={() => goToPokemon(pokemon.id)}
+                                key={pokemon.id}
                                 className="pokedex__pokemon"
                                 style={{ "--bg-color": `rgba(${COLORS[bgColor].replace("rgb(", "").slice(0, -1)},1)` }}>
                                 <div className="pokedex__pokemon__img-c">
@@ -94,7 +110,7 @@ export default function Pokedex() {
                             </div>
                         )
                     })}
-                </InfiniteScroll>
+                </div>
             </div>
         </div>
     )

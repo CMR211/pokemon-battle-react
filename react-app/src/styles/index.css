@@ -526,6 +526,7 @@ button {
           box-shadow: 5px 5px 10px 4px rgba(0, 0, 0, 0.1);
   width: 25rem;
   height: 44.1rem;
+  position: relative;
   background-color: white;
 }
 
@@ -555,7 +556,69 @@ button {
 }
 
 .pokedex__hero {
-  padding-left: 2rem;
+  padding: 0 2rem;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 2rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.pokedex__hero div {
+  position: relative;
+}
+
+.pokedex__hero p {
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.pokedex__hero input {
+  width: 100%;
+  outline: none;
+  border: none;
+  border: 2px solid transparent;
+  font-family: monospace;
+  color: inherit;
+  font-size: 1rem;
+  border-radius: 1.2rem;
+  padding: 10px 35px 10px 10px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.pokedex__hero input:focus {
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  background-color: transparent;
+}
+
+.pokedex__hero button {
+  cursor: pointer;
+  position: absolute;
+  right: 7px;
+  bottom: 8px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.pokedex__hero button:hover {
+  background-color: white;
 }
 
 .pokedex__list > div {
@@ -580,6 +643,7 @@ button {
   /* Firefox */
   -ms-overflow-style: none;
   /* Internet Explorer 10+ */
+  margin-bottom: 1rem;
 }
 
 .pokedex__list::-webkit-scrollbar {
@@ -658,5 +722,24 @@ button {
 .pokedex__pokemon:hover {
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
+}
+
+.pokedex__pokemon:nth-child(1) {
+  margin-top: 1.5rem;
+}
+
+.pokedex__pokemon:nth-child(2) {
+  margin-top: 1.5rem;
+}
+
+.bar {
+  position: absolute;
+  top: calc(60px + 63.68px);
+  z-index: 2;
+  width: 100%;
+  min-height: 40px;
+  background: white;
+  background: -webkit-gradient(linear, left top, left bottom, from(white), color-stop(50%, white), to(rgba(255, 255, 255, 0)));
+  background: linear-gradient(180deg, white 0%, white 50%, rgba(255, 255, 255, 0) 100%);
 }
 /*# sourceMappingURL=index.css.map */

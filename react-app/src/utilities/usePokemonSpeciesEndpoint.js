@@ -1,8 +1,8 @@
-import React from "react"
+import {useEffect} from "react"
 import axios from "axios"
 
 export default function usePokemonSpeciesEndpoint(idOrName, setData, setEvoData) {
-    React.useEffect(
+    useEffect(
         () => async () => {
             //
             const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${idOrName}/`, {

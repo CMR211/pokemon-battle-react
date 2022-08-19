@@ -59,6 +59,12 @@ button {
     padding: 0;
 }
 
+.loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @mixin Card {
     display: flex;
     flex-direction: column;

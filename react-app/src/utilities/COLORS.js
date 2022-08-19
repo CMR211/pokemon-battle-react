@@ -8,4 +8,5 @@ export const COLORS = {
     purple: "rgb(124, 83, 140)",
     gray: "rgb(160, 160, 160)",
     white: "rgb(240, 240, 240)",
+    black: "rgb(20, 20, 20)"
 }

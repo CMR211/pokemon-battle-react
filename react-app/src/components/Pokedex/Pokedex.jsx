@@ -1,21 +1,23 @@
 import { useState, useEffect } from "react"
+import axios from "axios"
+import InfiniteScroll from "react-infinite-scroller"
+
+import usePokemonColors from "../../utilities/usePokemonColors"
+
 import IconHome from "../../icons/IconHome"
 import IconReturn from "../../icons/IconReturn"
+import IconLoader from "../../icons/IconLoader"
+
 import { COLORS } from "../../utilities/COLORS"
-import InfiniteScroll from "react-infinite-scroller"
-import axios from "axios"
+import padZero from "../../utilities/padZero"
+import capitalize from "../../utilities/capitalize"
 
 export default function Pokedex() {
-    const initialState = new Array(20).fill({
-        name: "Temp",
-        url: 123,
-        img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/14.png",
-        bg: "yellow",
-    })
-
     const [pokemons, setPokemons] = useState([])
     const [nextPage, setNextPage] = useState("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=40")
+    const [pokemonColors, setPokemonColors] = useState(null)
 
+    // Fetch function for InfiniteScroll
     const fetchData = async (url) => {
         const { data } = await axios.get(url)
         const newPokemons = data.results.map((pokemon) => {
@@ -24,7 +26,7 @@ export default function Pokedex() {
             return {
                 id: id,
                 name: pokemon.name,
-                img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
+                img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`,
             }
         })
         setPokemons((prev) => {
@@ -35,8 +37,10 @@ export default function Pokedex() {
         setNextPage(data.next)
     }
 
-    // useEffect(() => {}, [pokemons])
+    // Fetching pokemon colors for the backgrounds
+    usePokemonColors(setPokemonColors)
 
+    if (pokemonColors === null) return <IconLoader />
     return (
         <div className="pokedex">
             <div className="pokedex__nav">
@@ -54,18 +58,25 @@ export default function Pokedex() {
                     hasMore={nextPage === null ? false : true}
                     loader={
                         <div className="loader" key={0}>
-                            Loading ...
+                            <IconLoader />
                         </div>
                     }
                     useWindow={false}>
                     {pokemons.map((pokemon) => {
+                        const bgColor = pokemonColors.find((color) => color.id === pokemon.id).color
                         return (
-                            <div className="pokedex__pokemon" style={{ "--bg-color": COLORS[pokemon.bg] }}>
+                            <div
+                                className="pokedex__pokemon"
+                                style={{ "--bg-color": `rgba(${COLORS[bgColor].replace("rgb(", "").slice(0, -1)},1)` }}>
                                 <div className="pokedex__pokemon__img-c">
                                     <img className="pokedex__pokemon__img-i" alt={pokemon.name} src={pokemon.img} />
                                 </div>
-                                <p className="pokedex__pokemon__name">{pokemon.name}</p>
-                                <p className="pokedex__pokemon__id">{pokemon.id}</p>
+                                <p className="pokedex__pokemon__name" style={bgColor === "white" ? { color: "inherit" } : {}}>
+                                    {capitalize(pokemon.name)}
+                                </p>
+                                <p className="pokedex__pokemon__id" style={bgColor === "white" ? { color: "inherit" } : {}}>
+                                    {padZero(pokemon.id)}
+                                </p>
                             </div>
                         )
                     })}

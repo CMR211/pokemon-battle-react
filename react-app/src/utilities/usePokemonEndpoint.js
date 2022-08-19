@@ -1,8 +1,8 @@
-import React from "react"
+import {useEffect} from "react"
 import axios from "axios"
 
 export default function usePokemonEndpoint(idOrName, setData) {
-    React.useEffect(
+    useEffect(
         () => async () => {
             let ignore = false
 

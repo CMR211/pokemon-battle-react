@@ -152,6 +152,17 @@
                 &:hover {
                     background-color: rgba(black, 0.15);
                 }
+                &__img-c {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100px;
+                    width: 100px;
+                }
+                &__img-i {
+                    height: 70px;
+                    width: 70px;
+                }
             }
             & div:nth-of-type(2) p {
                 margin-top: 0;

@@ -6,17 +6,16 @@
     }
 }
 
-.pokedex__list>div {
+.pokedex__list > div {
+    $gap: 2rem;
     display: grid;
-    grid-template-columns: 1fr 1fr; 
-    gap: 10px;
+    grid-template-columns: repeat(2, calc(200px - (1.5 * #{$gap})));
+    gap: $gap;
+    align-items: center;
+    justify-content: center;
 }
 
-.pokedex__list{
-    padding: $padding;
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
-    gap: 10px;
+.pokedex__list {
     overflow-y: auto;
     /* scrollbar hide */
     scrollbar-width: none; /* Firefox */
@@ -26,23 +25,52 @@
         width: 0;
         height: 0;
     }
-    scroll-snap-type: y mandatory;
+    // scroll-snap-type: y mandatory;
 }
 
 .pokedex__pokemon {
-    scroll-snap-align: start;
-    height: 150px;
+    aspect-ratio: 1;
     background-color: var(--bg-color);
-    display: grid;
-    grid-template-columns: 4fr 1fr;
-    justify-content: center;
+    display: flex;
     align-items: center;
-    padding: 1rem;
+    justify-content: center;
     border-radius: 1rem;
+    position: relative;
     &__img-c {
+        height: 96px;
+        aspect-ratio: 1;
         display: flex;
-        grid-column: span 2;
         align-items: center;
         justify-content: center;
+        background-color: rgba(white, 0.3);
+        border-radius: 50%;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+    }
+    &__img-i {
+        height: 96px;
+        width: 96px;
+    }
+    &__id {
+        text-align: right;
+        font-family: "Courier New", Courier, monospace;
+        font-weight: 700;
+        &:before {
+            content: "#";
+        }
+        position: absolute;
+        top: 45px;
+        left: 10px;
+        color: rgba(white, 0.75);
+    }
+    &__name {
+        display: block;
+        position: absolute;
+        top: 20px;
+        left: 10px;
+        color: rgba(white, 0.75);
+        font-weight: 700;
+        font-size: 1.1rem;
     }
 }

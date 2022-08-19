@@ -20,9 +20,15 @@ export default function ContentCardEvolution({ pokemonEvolutionData, goToPokemon
                     initial={{ x: 100, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.1 * index }}
-                    exit={{ x: -100 , opacity: 0 }}>
+                    exit={{ x: -100, opacity: 0 }}>
                     <div className="pokemon-card__body__evolution__pokemon" onClick={() => goToPokemon(evolution.base.id)}>
-                        <img src={evolution.base.url} alt={evolution.base.name} />
+                        <div className="pokemon-card__body__evolution__pokemon__img-c">
+                            <img
+                                className="pokemon-card__body__evolution__pokemon__img-i"
+                                src={evolution.base.url}
+                                alt={evolution.base.name}
+                            />
+                        </div>
                         <p>{capitalize(evolution.base.name)}</p>
                     </div>
                     <div className="pokemon-card__body__evolution__arrow">
@@ -30,7 +36,13 @@ export default function ContentCardEvolution({ pokemonEvolutionData, goToPokemon
                         <IconArrow />
                     </div>
                     <div className="pokemon-card__body__evolution__pokemon" onClick={() => goToPokemon(evolution.target.id)}>
-                        <img src={evolution.target.url} alt={evolution.target.name} />
+                        <div className="pokemon-card__body__evolution__pokemon__img-c">
+                            <img
+                                className="pokemon-card__body__evolution__pokemon__img-i"
+                                src={evolution.target.url}
+                                alt={evolution.target.name}
+                            />
+                        </div>
                         <p>{capitalize(evolution.target.name)}</p>
                     </div>
                 </motion.div>

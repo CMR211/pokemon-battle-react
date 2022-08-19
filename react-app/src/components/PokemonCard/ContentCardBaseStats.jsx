@@ -10,16 +10,16 @@ export default function ContentCardBaseStats({ pokemonData }) {
         <AnimatePresence>
             <motion.div
                 className="pokemon-card__body__stats"
-                initial={{ x: 100, opacity: 0 }}
+                initial={{ x: 50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -100, opacity: 0 }}>
+                exit={{ x: -50, opacity: 0 }}>
                 {pokemonData.stats.map((stat, index) => {
                     const colorStr = COLORS[Object.keys(COLORS)[index]]
                     return (
                         <motion.div
-                            initial={{ x: 100, opacity: 0 }}
+                            initial={{ x: 50, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
-                            exit={{ x: -100, opacity: 0 }}
+                            exit={{ x: -50, opacity: 0 }}
                             transition={{ delay: 0.1 * index }}
                             key={index}
                             className="pokemon-card__body__stat"

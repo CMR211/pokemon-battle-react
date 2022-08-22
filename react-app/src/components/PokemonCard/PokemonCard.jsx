@@ -87,9 +87,9 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
                 key={pokemonData.name}
                 className="pokemon-card"
                 style={{ "--bg-color": COLORS[pokemonSpeciesData.color.name] }}
-                initial={{ y: 50, opacity: 0 }}
+                initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -50, opacity: 0 }}>
+                exit={{ y: -20, opacity: 0 }}>
                 <div className="pokemon-card__nav">
                     <button className="pokemon-card__nav__button--return pokemon-card__nav__button" onClick={goToPokedex}>
                         <IconReturn />

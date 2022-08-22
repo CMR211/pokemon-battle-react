@@ -1,33 +1,31 @@
 import { useState, useEffect } from "react"
-import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import axios from "axios"
+import { AnimatePresence, motion } from "framer-motion"
 
 import usePokemonColors from "../../utilities/usePokemonColors"
+import PokedexCard from "./PokedexCard"
 
 import IconHome from "../../icons/IconHome"
 import IconReturn from "../../icons/IconReturn"
 import IconLoader from "../../icons/IconLoader"
-
-import { COLORS } from "../../utilities/COLORS"
-import padZero from "../../utilities/padZero"
-import capitalize from "../../utilities/capitalize"
 import IconNo from "../../icons/IconNo"
 
-export default function Pokedex() {
+export default function Pokedex({ favoritedPokemons, setFavoritedPokemons }) {
     const [pokemons, setPokemons] = useState([])
     const [pokemonColors, setPokemonColors] = useState(null)
     const [filteredPokemons, setFilteredPokemons] = useState([])
     const [input, setInput] = useState("")
 
-    // Fetch function for InfiniteScroll
     const fetchPokemonList = async (url) => {
         const { data } = await axios.get(url)
         const pokemonList = data.results.map((pokemon) => {
-            // https://pokeapi.co/api/v2/pokemon/6/
+            // Get pokemon id by slicing the target url
             const id = pokemon.url.replace("https://pokeapi.co/api/v2/pokemon/", "").replace("/", "")
+            // Return an object for each pokemon
             return {
                 id: id,
-                name: pokemon.name.slice(0, 15),
+                name: pokemon.name.slice(0, 15), // Few pokemons have too long name to display correctly
                 img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`,
             }
         })
@@ -64,50 +62,46 @@ export default function Pokedex() {
 
     if (pokemonColors === null) return <IconLoader />
     return (
-        <div className="pokedex">
-            <div className="pokedex__nav">
-                <button className="pokedex__nav__button--return pokedex__nav__button">
-                    <IconReturn />
-                </button>
-                <button className="pokedex__nav__button--home pokedex__nav__button" onClick={() => {}}>
-                    <IconHome />
-                </button>
-            </div>
-            <div className="pokedex__hero">
-                <h1>Pokedex</h1>
-                <div className="pokedex__her__search">
-                    <p>Search by name or ID</p>
-                    <input name="nameOrId" type="text" onInput={filterPokemons} value={input} />
-                    <button onClick={clearInput}>
-                        <IconNo />
+        <AnimatePresence>
+            <motion.div
+                className="pokedex"
+                key="pokedex"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 20, opacity: 0 }}>
+                <div className="pokedex__nav">
+                    <button className="pokedex__nav__button--return pokedex__nav__button">
+                        <IconReturn />
+                    </button>
+                    <button className="pokedex__nav__button--home pokedex__nav__button" onClick={() => {}}>
+                        <IconHome />
                     </button>
                 </div>
-            </div>
-            <div className="bar"></div>
-            <div className="pokedex__list">
-                <div>
-                    {filteredPokemons.map((pokemon) => {
-                        const bgColor = pokemonColors.find((color) => color.id === pokemon.id).color
-                        return (
-                            <div
-                                onClick={() => goToPokemon(pokemon.id)}
-                                key={pokemon.id}
-                                className="pokedex__pokemon"
-                                style={{ "--bg-color": `rgba(${COLORS[bgColor].replace("rgb(", "").slice(0, -1)},1)` }}>
-                                <div className="pokedex__pokemon__img-c">
-                                    <img className="pokedex__pokemon__img-i" alt={pokemon.name} src={pokemon.img} />
-                                </div>
-                                <p className="pokedex__pokemon__name" style={bgColor === "white" ? { color: "inherit" } : {}}>
-                                    {capitalize(pokemon.name)}
-                                </p>
-                                <p className="pokedex__pokemon__id" style={bgColor === "white" ? { color: "inherit" } : {}}>
-                                    {padZero(pokemon.id)}
-                                </p>
-                            </div>
-                        )
-                    })}
+                <div className="pokedex__hero">
+                    <h1>Pokedex</h1>
+                    <div className="pokedex__her__search">
+                        <p>Search by name or ID</p>
+                        <input name="nameOrId" type="text" onInput={filterPokemons} value={input} />
+                        <button onClick={clearInput}>
+                            <IconNo />
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </div>
+                <div className="bar"></div>
+                <div className="pokedex__list">
+                    <div>
+                        {filteredPokemons.map((pokemon) => (
+                            <PokedexCard
+                                pokemon={pokemon}
+                                pokemonColors={pokemonColors}
+                                goToPokemon={goToPokemon}
+                                favoritedPokemons={favoritedPokemons}
+                                setFavoritedPokemons={setFavoritedPokemons}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </motion.div>
+        </AnimatePresence>
     )
 }

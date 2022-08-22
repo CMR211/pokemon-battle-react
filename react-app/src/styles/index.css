@@ -742,4 +742,12 @@ button {
   background: -webkit-gradient(linear, left top, left bottom, from(white), color-stop(50%, white), to(rgba(255, 255, 255, 0)));
   background: linear-gradient(180deg, white 0%, white 50%, rgba(255, 255, 255, 0) 100%);
 }
+
+.pokedex__like-status {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  right: 10px;
+  color: rgba(255, 255, 255, 0.3);
+}
 /*# sourceMappingURL=index.css.map */

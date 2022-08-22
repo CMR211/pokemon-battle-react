@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import usePokemonColors from "../../utilities/usePokemonColors"
 
@@ -20,7 +20,7 @@ export default function Pokedex() {
     const [input, setInput] = useState("")
 
     // Fetch function for InfiniteScroll
-    const fetchData = async (url) => {
+    const fetchPokemonList = async (url) => {
         const { data } = await axios.get(url)
         const pokemonList = data.results.map((pokemon) => {
             // https://pokeapi.co/api/v2/pokemon/6/
@@ -34,13 +34,7 @@ export default function Pokedex() {
         setPokemons(pokemonList)
     }
 
-    useEffect(
-        () => async () => {
-            fetchData("https://pokeapi.co/api/v2/pokemon?limit=649")
-            console.log("pokemons", pokemons)
-        },
-        []
-    )
+    useEffect(() => async () => fetchPokemonList("https://pokeapi.co/api/v2/pokemon?limit=649"), [])
 
     // Fetching pokemon colors for the backgrounds
     usePokemonColors(setPokemonColors)
@@ -50,15 +44,15 @@ export default function Pokedex() {
     }, [pokemons])
 
     const filterPokemons = (e) => {
-        setInput(e.target.value)
+        const searchphrase = e.target.value.toLowerCase()
+        setInput(searchphrase)
         const filteredPokemons = pokemons.filter(
-            (pokemon) => pokemon.id.includes(e.target.value) || pokemon.name.includes(e.target.value)
+            (pokemon) => pokemon.id.includes(searchphrase) || pokemon.name.includes(searchphrase)
         )
-        console.log("filtered pokemons", filteredPokemons)
         setFilteredPokemons(filteredPokemons)
     }
 
-    const clearInput = () => { 
+    const clearInput = () => {
         setInput("")
         setFilteredPokemons(pokemons)
     }
@@ -84,7 +78,9 @@ export default function Pokedex() {
                 <div className="pokedex__her__search">
                     <p>Search by name or ID</p>
                     <input name="nameOrId" type="text" onInput={filterPokemons} value={input} />
-                    <button onClick={clearInput}><IconNo /></button>
+                    <button onClick={clearInput}>
+                        <IconNo />
+                    </button>
                 </div>
             </div>
             <div className="bar"></div>

@@ -32,7 +32,7 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
 
     // Current body content displayed
     // 0 - About, 1 - Stats, 2 - Evolutions, 3 - Generations
-    const [contentCard, setContentCard] = useState(2)
+    const [contentCard, setContentCard] = useState(0)
 
     // States for fetched PokemonAPI data
     const [pokemonData, setPokemonData] = useState(null)
@@ -82,9 +82,9 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
     // Check if data has been fetched otherwise show the loader icon
     if (pokemonData === null || pokemonSpeciesData === null || pokemonEvolutionData === null) return <IconLoader />
     return (
-        <AnimatePresence>
+        <AnimatePresence mode={"wait"}>
             <motion.div
-                key={{ idOrName }}
+                key={pokemonData.name}
                 className="pokemon-card"
                 style={{ "--bg-color": COLORS[pokemonSpeciesData.color.name] }}
                 initial={{ y: 50, opacity: 0 }}

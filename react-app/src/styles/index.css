@@ -557,17 +557,12 @@ button {
 
 .pokedex__hero {
   padding: 0 2rem;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 2rem;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+}
+
+.pokedex__hero h1 {
+  position: absolute;
+  top: 0;
+  right: 50%;
 }
 
 .pokedex__hero div {
@@ -581,6 +576,7 @@ button {
 
 .pokedex__hero input {
   width: 100%;
+  height: 40px;
   outline: none;
   border: none;
   border: 2px solid transparent;
@@ -600,12 +596,12 @@ button {
 .pokedex__hero button {
   cursor: pointer;
   position: absolute;
-  right: 7px;
-  bottom: 8px;
+  right: 5px;
+  bottom: 5px;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 50%;
-  height: 25px;
-  width: 25px;
+  height: 30px;
+  width: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -618,7 +614,15 @@ button {
 }
 
 .pokedex__hero button:hover {
-  background-color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.pokedex__hero__search {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 3fr 1fr;
+      grid-template-columns: 3fr 1fr;
+  gap: 2rem;
 }
 
 .pokedex__list > div {
@@ -749,5 +753,46 @@ button {
   top: 10px;
   right: 10px;
   color: rgba(255, 255, 255, 0.3);
+}
+
+.fav-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.fav-checkbox div {
+  position: relative;
+  --width: 70px;
+  --height: 40px;
+  width: var(--width);
+  height: var(--height);
+  border-radius: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.fav-checkbox div:before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  border-radius: 50%;
+  top: calc((var(--height) - 30px) / 2);
+  left: 5px;
+  -webkit-transition: left 150ms ease-in-out;
+  transition: left 150ms ease-in-out;
+}
+
+.fav-checkbox div:hover:before {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.fav-checkbox input:checked ~ div:before {
+  left: calc(var(--width) - 5px - 30px);
+  background-color: #4fc1a6;
 }
 /*# sourceMappingURL=index.css.map */

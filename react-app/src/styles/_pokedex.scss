@@ -7,11 +7,11 @@
     }
     &__hero {
         padding: 0 $padding;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-        gap: 2rem;
-        justify-content: space-between;
+    }
+    &__hero h1 {
+        position: absolute;
+        top: 0;
+        right: 50%;
     }
     &__hero div {
         position: relative;
@@ -22,6 +22,7 @@
     }
     &__hero input {
         width: 100%;
+        height: 40px;
         outline: none;
         border: none;
         border: 2px solid transparent;
@@ -39,18 +40,23 @@
     &__hero button {
         cursor: pointer;
         position: absolute;
-        right: 7px;
-        bottom: 8px;
+        right: 5px;
+        bottom: 5px;
         background-color: rgba(black, 0.05);
         border-radius: 50%;
-        height: 25px;
-        width: 25px;
+        height: 30px;
+        width: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
         &:hover {
-            background-color: white;
+            background-color: rgba(black, 0.2);
         }
+    }
+    &__hero__search {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 2rem;
     }
 }
 
@@ -128,10 +134,10 @@
         transform: scale(1.05);
     }
     &:nth-child(1) {
-        margin-top: 1.5rem;;
+        margin-top: 1.5rem;
     }
     &:nth-child(2) {
-        margin-top: 1.5rem;;
+        margin-top: 1.5rem;
     }
 }
 
@@ -150,5 +156,45 @@
     z-index: 2;
     top: 10px;
     right: 10px;
-    color: rgba(white,0.3);
+    color: rgba(white, 0.3);
+}
+
+.fav-checkbox {
+    & input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    & div {
+        position: relative;
+        --width: 70px;
+        --height: 40px;
+        width: var(--width);
+        height: var(--height);
+        // border: 2px solid transparent;
+        border-radius: 1.2rem;
+        background-color: rgba(black, 0.05);
+        cursor: pointer;
+    }
+    & div:before {
+        content: "";
+        width: 30px;
+        height: 30px;
+        background-color: rgba(black, 0.1);
+        position: absolute;
+        border-radius: 50%;
+        top: calc((var(--height) - 30px) / 2);
+        left: 5px;
+        transition: left 150ms ease-in-out;
+    }
+    & div:hover:before {
+        background-color: rgba(black, 0.2);
+    }
+    & input:checked ~ div:before {
+        left: calc(var(--width) - 5px - 30px);
+        background-color: rgb(79, 193, 166);
+    }
 }

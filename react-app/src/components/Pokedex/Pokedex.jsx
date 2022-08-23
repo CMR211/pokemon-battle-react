@@ -10,12 +10,14 @@ import IconHome from "../../icons/IconHome"
 import IconReturn from "../../icons/IconReturn"
 import IconLoader from "../../icons/IconLoader"
 import IconNo from "../../icons/IconNo"
+import { useRef } from "react"
 
 export default function Pokedex({ favoritedPokemons, setFavoritedPokemons }) {
     const [pokemons, setPokemons] = useState([])
     const [pokemonColors, setPokemonColors] = useState(null)
     const [filteredPokemons, setFilteredPokemons] = useState([])
     const [input, setInput] = useState("")
+    const checkboxRef = useRef(null)
 
     const fetchPokemonList = async (url) => {
         const { data } = await axios.get(url)
@@ -60,6 +62,20 @@ export default function Pokedex({ favoritedPokemons, setFavoritedPokemons }) {
         navigate(`/pokemon/${inputId}`)
     }
 
+    const toggleCheckbox = () => {
+        if (checkboxRef.current.checked === true) {
+            checkboxRef.current.checked = false
+            setFilteredPokemons(pokemons)
+            return
+        }
+        if (checkboxRef.current.checked === false) {
+            checkboxRef.current.checked = true
+            const likedPokemons = pokemons.filter((pokemon) => favoritedPokemons.includes(pokemon.id))
+            setFilteredPokemons(likedPokemons)
+            return
+        }
+    }
+
     if (pokemonColors === null) return <IconLoader />
     return (
         <AnimatePresence>
@@ -79,12 +95,19 @@ export default function Pokedex({ favoritedPokemons, setFavoritedPokemons }) {
                 </div>
                 <div className="pokedex__hero">
                     <h1>Pokedex</h1>
-                    <div className="pokedex__her__search">
-                        <p>Search by name or ID</p>
-                        <input name="nameOrId" type="text" onInput={filterPokemons} value={input} />
-                        <button onClick={clearInput}>
-                            <IconNo />
-                        </button>
+                    <div className="pokedex__hero__search">
+                        <div>
+                            <p>Search by name or ID</p>
+                            <input name="nameOrId" type="text" onInput={filterPokemons} value={input} />
+                            <button onClick={clearInput}>
+                                <IconNo />
+                            </button>
+                        </div>
+                        <div className="fav-checkbox">
+                            <label for="fav">Liked only</label>
+                            <input type="checkbox" title="fav" ref={checkboxRef} />
+                            <div className="toggle" onClick={toggleCheckbox}></div>
+                        </div>
                     </div>
                 </div>
                 <div className="bar"></div>

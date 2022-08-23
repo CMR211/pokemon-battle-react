@@ -11,7 +11,6 @@ export default function PokedexCard({ pokemonColors, goToPokemon, pokemon, favor
     return (
         <div
             onClick={() => goToPokemon(pokemon.id)}
-            key={pokemon.id}
             className="pokedex__pokemon"
             style={{ "--bg-color": `rgba(${COLORS[bgColor].replace("rgb(", "").slice(0, -1)},1)` }}>
             <div className="pokedex__like-status">{favoritedPokemons.includes(pokemon.id) ? <IconLiked /> : ""}</div>

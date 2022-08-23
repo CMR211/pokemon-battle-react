@@ -10,8 +10,8 @@
     }
     &__hero h1 {
         position: absolute;
-        top: 0;
-        right: 50%;
+        top: 10px;
+        left: 8rem;
     }
     &__hero div {
         position: relative;
@@ -80,7 +80,7 @@
         width: 0;
         height: 0;
     }
-    margin-bottom: 1rem;
+    margin-bottom: 1.6rem;
 }
 
 .pokedex__pokemon {
@@ -143,7 +143,7 @@
 
 .bar {
     position: absolute;
-    top: calc(60px + 63.68px);
+    top: calc(60px + 62.4px);
     z-index: 2;
     width: 100%;
     min-height: 40px;

@@ -561,8 +561,8 @@ button {
 
 .pokedex__hero h1 {
   position: absolute;
-  top: 0;
-  right: 50%;
+  top: 10px;
+  left: 8rem;
 }
 
 .pokedex__hero div {
@@ -647,7 +647,7 @@ button {
   /* Firefox */
   -ms-overflow-style: none;
   /* Internet Explorer 10+ */
-  margin-bottom: 1rem;
+  margin-bottom: 1.6rem;
 }
 
 .pokedex__list::-webkit-scrollbar {
@@ -738,7 +738,7 @@ button {
 
 .bar {
   position: absolute;
-  top: calc(60px + 63.68px);
+  top: calc(60px + 62.4px);
   z-index: 2;
   width: 100%;
   min-height: 40px;

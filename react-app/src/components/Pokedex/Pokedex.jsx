@@ -46,6 +46,7 @@ export default function Pokedex({ favoritedPokemons, setFavoritedPokemons }) {
     const filterPokemons = (e) => {
         const searchphrase = e.target.value.toLowerCase()
         setInput(searchphrase)
+        checkboxRef.current.checked = false
         const filteredPokemons = pokemons.filter(
             (pokemon) => pokemon.id.includes(searchphrase) || pokemon.name.includes(searchphrase)
         )
@@ -54,6 +55,7 @@ export default function Pokedex({ favoritedPokemons, setFavoritedPokemons }) {
 
     const clearInput = () => {
         setInput("")
+        checkboxRef.current.checked = false
         setFilteredPokemons(pokemons)
     }
 
@@ -104,7 +106,7 @@ export default function Pokedex({ favoritedPokemons, setFavoritedPokemons }) {
                             </button>
                         </div>
                         <div className="fav-checkbox">
-                            <label for="fav">Liked only</label>
+                            <label htmlFor="fav">Liked only</label>
                             <input type="checkbox" title="fav" ref={checkboxRef} />
                             <div className="toggle" onClick={toggleCheckbox}></div>
                         </div>

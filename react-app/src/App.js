@@ -1,10 +1,12 @@
 import PokemonCard from "./components/PokemonCard/PokemonCard.jsx"
 import { Routes, Route } from "react-router-dom"
 import { useState, useEffect } from "react"
+import { AnimatePresence } from "framer-motion"
 
 import "./styles/index.css"
+
+import Home from "./components/Home/Home.jsx"
 import Pokedex from "./components/Pokedex/Pokedex.jsx"
-import { AnimatePresence } from "framer-motion"
 
 function App() {
     const [favoritedPokemons, setFavoritedPokemons] = useState([])
@@ -17,6 +19,7 @@ function App() {
     return (
         <AnimatePresence>
             <Routes>
+                <Route key="home" path="/" element={<Home />} />
                 <Route
                     key="pokedex"
                     path="/pokedex"

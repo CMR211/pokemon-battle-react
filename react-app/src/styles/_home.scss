@@ -1,0 +1,41 @@
+.home {
+    @include Card;
+    background-color: rgb(230, 230, 230);
+    position: relative;
+    overflow: hidden;
+}
+
+.home__container {
+    background-color: white;
+    height: 80%;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 10px 4px rgba(black, 0.1);
+    padding: 2rem;
+}
+.silhouette svg {
+    color: rgba(rgb(0, 0, 0), 0.05);
+}
+.pokeball {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+}
+.pokeball svg {
+    width: 300px;
+    height: 300px;
+    transform: rotate(40deg);
+}
+.pikachu {
+    position: absolute;
+    bottom: 120px;
+    left: -10px;
+}
+.pikachu svg {
+    width: 300px;
+    height: 300px;
+    transform: rotateY(180deg);
+}
+
+.home h1 {
+    text-align: center;
+}

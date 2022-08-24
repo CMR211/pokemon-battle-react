@@ -24,8 +24,10 @@ import IconLiked from "../../icons/IconLiked"
 import IconNotLiked from "../../icons/IconNotLiked"
 import IconReturn from "../../icons/IconReturn"
 import IconLoader from "../../icons/IconLoader"
+import { goToLocation } from "../../utilities/goToLocation"
+import { returnToLocation } from "../../utilities/returnToLocation"
 
-export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons }) {
+export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, history, setHistory }) {
     // Get pokemon id from current url parameter
     let { id } = useParams()
     const [idOrName, setIdOrName] = useState(id)
@@ -72,11 +74,20 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
     // Function to navigate to another pokemon (used mainly in evolution tab)
     const navigate = useNavigate()
     const goToPokemon = (inputId) => {
-        navigate(`/pokemon/${inputId}`)
+        goToLocation("/pokemon/" + inputId, "/pokemon/" + id, setHistory, navigate)
         setIdOrName(inputId)
     }
-    const goToPokedex = () => {
-        navigate(`/pokedex`)
+
+    //
+    function handleReturn() {
+        if (!history[history.length-1].includes("/pokemon")) {
+            returnToLocation(navigate, history, setHistory)
+        }
+        else {
+            const prevID = history[history.length - 1].replace("/pokemon/", "")
+            setHistory(prev => [...prev].slice(0,-1))
+            setIdOrName(prevID)
+        }
     }
 
     // Check if data has been fetched otherwise show the loader icon
@@ -91,7 +102,7 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons })
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -20, opacity: 0 }}>
                 <div className="pokemon-card__nav">
-                    <button className="pokemon-card__nav__button--return pokemon-card__nav__button" onClick={goToPokedex}>
+                    <button className="pokemon-card__nav__button--return pokemon-card__nav__button" onClick={handleReturn}>
                         <IconReturn />
                     </button>
                     <button

@@ -9,6 +9,7 @@ import Home from "./components/Home/Home.jsx"
 import Pokedex from "./components/Pokedex/Pokedex.jsx"
 
 function App() {
+    const [history, setHistory] = useState(["/"])
     const [favoritedPokemons, setFavoritedPokemons] = useState([])
 
     useEffect(() => {
@@ -16,19 +17,37 @@ function App() {
         if (fp) setFavoritedPokemons(fp)
     }, [])
 
+    useEffect(() => {
+        console.log(history)
+    }, [history])
+
     return (
         <AnimatePresence>
             <Routes>
-                <Route key="home" path="/" element={<Home />} />
+                <Route key="home" path="/" element={<Home history={history} setHistory={setHistory} />} />
                 <Route
                     key="pokedex"
                     path="/pokedex"
-                    element={<Pokedex favoritedPokemons={favoritedPokemons} setFavoritedPokemons={setFavoritedPokemons} />}
+                    element={
+                        <Pokedex
+                            history={history}
+                            setHistory={setHistory}
+                            favoritedPokemons={favoritedPokemons}
+                            setFavoritedPokemons={setFavoritedPokemons}
+                        />
+                    }
                 />
                 <Route
                     key="pokemon"
                     path="/pokemon/:id"
-                    element={<PokemonCard favoritedPokemons={favoritedPokemons} setFavoritedPokemons={setFavoritedPokemons} />}
+                    element={
+                        <PokemonCard
+                            history={history}
+                            setHistory={setHistory}
+                            favoritedPokemons={favoritedPokemons}
+                            setFavoritedPokemons={setFavoritedPokemons}
+                        />
+                    }
                 />
             </Routes>
         </AnimatePresence>

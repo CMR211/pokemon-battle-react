@@ -8,16 +8,7 @@ import IconPikachu from "../../icons/IconPikachu"
 import HomeButton from "./HomeButton"
 
 export default function Home({ history, setHistory }) {
-    useEffect(() => async () => {
-        const { data } = await axios.get("https://www.bulbagarden.net/", {
-            headers: {
-                "Access-Control-Allow-Origin": "https://www.bulbagarden.net/, http://localhost:3000",
-                "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-            },
-        })
-        console.log(data)
-    })
+    
     function genRandom() {
         const MAX_POK = 649
         return Math.floor(Math.random() * MAX_POK)

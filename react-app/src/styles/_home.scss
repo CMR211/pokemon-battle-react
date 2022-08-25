@@ -1,6 +1,8 @@
 .home {
     @include Card;
-    background-color: rgb(230, 230, 230);
+    // background-color: rgb(230, 230, 230);
+    background-color: white;
+    padding: 2rem;
     position: relative;
     overflow: hidden;
 }
@@ -13,9 +15,11 @@
     padding: 2rem;
 }
 .bg {
+    z-index: 1;
     pointer-events: none;
 }
 .bg svg {
+    z-index: inherit;
     width: 300px;
     height: 300px;
     color: rgba(rgb(0, 0, 0), 0.05);
@@ -31,13 +35,18 @@
 }
 .pikachu {
     position: absolute;
-    bottom: 120px;
+    bottom: -120px;
     left: -10px;
 }
 .pikachu svg {
     transform: rotateY(180deg);
 }
 
-.home h1 {
-    // text-align: center;
+.home__buttons {
+    z-index: 2;
+    margin-top: 2rem;
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    align-items: center;
 }

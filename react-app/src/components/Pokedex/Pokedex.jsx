@@ -6,13 +6,11 @@ import usePokemonColors from "../../utilities/usePokemonColors"
 import usePokemonList from "../../utilities/usePokemonList"
 import PokedexCard from "./PokedexCard"
 
-import IconHome from "../../icons/IconHome"
-import IconReturn from "../../icons/IconReturn"
 import IconLoader from "../../icons/IconLoader"
 import IconNo from "../../icons/IconNo"
 
 import { goToLocation } from "../../utilities/goToLocation"
-import { returnToLocation } from "../../utilities/returnToLocation"
+import BaseNav from "../Nav/BaseNav"
 
 export default function Pokedex({ favoritedPokemons, setFavoritedPokemons, history, setHistory }) {
     console.log("%c Rendering <Pokedex>", "color: blue; font-weight: bold")
@@ -53,9 +51,6 @@ export default function Pokedex({ favoritedPokemons, setFavoritedPokemons, histo
     const goToPokemon = (inputId) => {
         goToLocation("/pokemon/" + inputId, "/pokedex", setHistory, navigate)
     }
-    const goToHome = () => {
-        goToLocation("/", "/pokedex", setHistory, navigate)
-    }
 
     const toggleCheckbox = () => {
         if (checkboxRef.current.checked === true) {
@@ -80,16 +75,7 @@ export default function Pokedex({ favoritedPokemons, setFavoritedPokemons, histo
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 20, opacity: 0 }}>
-                <div className="pokedex__nav">
-                    <button
-                        className="pokedex__nav__button--return pokedex__nav__button"
-                        onClick={() => returnToLocation(navigate, history, setHistory)}>
-                        <IconReturn />
-                    </button>
-                    <button className="pokedex__nav__button--home pokedex__nav__button" onClick={goToHome}>
-                        <IconHome />
-                    </button>
-                </div>
+                <BaseNav history={history} setHistory={setHistory} currentLocation="/pokedex" />
                 <div className="pokedex__hero">
                     <h1>Pokedex</h1>
                     <div className="pokedex__hero__search">

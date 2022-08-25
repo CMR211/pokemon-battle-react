@@ -2,9 +2,7 @@
     @include Card;
     position: relative;
     background-color: white;
-    &__nav {
-        @include Nav;
-    }
+    
     &__hero {
         padding: 0 $padding;
     }

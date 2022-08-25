@@ -1,8 +1,24 @@
 .main-button {
+    position: relative;
+    overflow: hidden;
     padding: 1rem;
     width: 12rem;
     background-color: var(--bg-color);
     border-radius: 0.75rem;
     cursor: pointer;
     box-shadow: 0 1px 10px 1px var(--bg-color);
+    transition: 200ms ease-in-out;
+}
+
+.main-button:hover {
+    box-shadow: 0 3px 10px 2px var(--bg-color);
+}
+
+.main-button svg {
+    top: 0;
+    right: -10px;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    color: rgba(black, 0.1)
 }

@@ -89,3 +89,7 @@ button {
         }
     }
 }
+
+.nav {
+    @include Nav;
+}

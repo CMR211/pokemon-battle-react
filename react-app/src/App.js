@@ -7,6 +7,7 @@ import "./styles/index.css"
 
 import Home from "./components/Home/Home.jsx"
 import Pokedex from "./components/Pokedex/Pokedex.jsx"
+import Berries from "./components/Berries/Berries.jsx"
 
 function App() {
     const [history, setHistory] = useState(["/"])
@@ -48,6 +49,7 @@ function App() {
                         />
                     }
                 />
+                <Route key="berries" path="/berries" element={<Berries history={history} setHistory={setHistory} />} />
                 <Route key="home" path="/" element={<Home history={history} setHistory={setHistory} />} />
             </Routes>
         </AnimatePresence>

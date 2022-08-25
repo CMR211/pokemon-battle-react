@@ -16,7 +16,7 @@ import { returnToLocation } from "../../utilities/returnToLocation"
 
 export default function Pokedex({ favoritedPokemons, setFavoritedPokemons, history, setHistory }) {
     console.log("%c Rendering <Pokedex>", "color: blue; font-weight: bold")
-    const [pokemons, setPokemons] = useState([])
+    const [pokemons, setPokemons] = useState(null)
     const [pokemonColors, setPokemonColors] = useState(null)
     const [filteredPokemons, setFilteredPokemons] = useState([])
     const [input, setInput] = useState("")
@@ -35,6 +35,7 @@ export default function Pokedex({ favoritedPokemons, setFavoritedPokemons, histo
             }
         })
         setPokemons(pokemonList)
+        console.log("%c Fetched Pokemons List", "color: green")
     }
 
     useEffect(() => async () => fetchPokemonList("https://pokeapi.co/api/v2/pokemon?limit=649"), [])
@@ -84,7 +85,7 @@ export default function Pokedex({ favoritedPokemons, setFavoritedPokemons, histo
         }
     }
 
-    if (pokemonColors === null) return <IconLoader />
+    if (pokemonColors === null || pokemons === null) return <IconLoader />
     return (
         <AnimatePresence>
             <motion.div

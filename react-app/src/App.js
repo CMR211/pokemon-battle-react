@@ -1,5 +1,5 @@
 import PokemonCard from "./components/PokemonCard/PokemonCard.jsx"
-import { Routes, Route } from "react-router-dom"
+import { Switch, Route } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { AnimatePresence } from "framer-motion"
 
@@ -23,7 +23,7 @@ function App() {
 
     return (
         <AnimatePresence>
-                <Route key="home" path="/" element={<Home history={history} setHistory={setHistory} />} />
+            <Switch>
                 <Route
                     key="pokedex"
                     path="/pokedex"
@@ -48,6 +48,8 @@ function App() {
                         />
                     }
                 />
+                <Route key="home" path="/" element={<Home history={history} setHistory={setHistory} />} />
+            </Switch>
         </AnimatePresence>
     )
 }

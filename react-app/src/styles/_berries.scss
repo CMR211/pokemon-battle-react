@@ -2,3 +2,21 @@
     @include Card;
     background-color: white;
 }
+
+.berries > div {
+    padding: 2rem;
+}
+
+.berry {
+    display: grid;
+    grid-template-columns: 1fr 5fr 2fr;
+}
+
+.berry__info {
+    font-size: 0.8rem;
+}
+
+.berry__flavors div {
+    display: flex;
+    justify-content: space-between;
+}

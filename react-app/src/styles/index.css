@@ -918,4 +918,28 @@ button {
   height: 44.1rem;
   background-color: white;
 }
+
+.berries > div {
+  padding: 2rem;
+}
+
+.berry {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 5fr 2fr;
+      grid-template-columns: 1fr 5fr 2fr;
+}
+
+.berry__info {
+  font-size: 0.8rem;
+}
+
+.berry__flavors div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
 /*# sourceMappingURL=index.css.map */

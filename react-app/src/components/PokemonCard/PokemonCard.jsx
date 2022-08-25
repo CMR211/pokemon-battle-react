@@ -28,6 +28,7 @@ import { goToLocation } from "../../utilities/goToLocation"
 import { returnToLocation } from "../../utilities/returnToLocation"
 
 export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, history, setHistory }) {
+    console.log("%c Rendering <Pokemon>", "color: blue; font-weight: bold")
     // Get pokemon id from current url parameter
     let { id } = useParams()
     const [idOrName, setIdOrName] = useState(id)

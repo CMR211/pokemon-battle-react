@@ -8,6 +8,7 @@ import IconPikachu from "../../icons/IconPikachu"
 import HomeButton from "./HomeButton"
 
 export default function Home({ history, setHistory }) {
+    console.log("%c Rendering <Home>", "color: blue; font-weight: bold")
     
     function genRandom() {
         const MAX_POK = 649

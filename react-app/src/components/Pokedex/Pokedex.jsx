@@ -15,6 +15,7 @@ import { goToLocation } from "../../utilities/goToLocation"
 import { returnToLocation } from "../../utilities/returnToLocation"
 
 export default function Pokedex({ favoritedPokemons, setFavoritedPokemons, history, setHistory }) {
+    console.log("%c Rendering <Pokedex>", "color: blue; font-weight: bold")
     const [pokemons, setPokemons] = useState([])
     const [pokemonColors, setPokemonColors] = useState(null)
     const [filteredPokemons, setFilteredPokemons] = useState([])

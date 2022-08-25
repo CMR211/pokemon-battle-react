@@ -1,16 +1,28 @@
-import React from "react"
+import { useEffect } from "react"
 import { AnimatePresence, motion } from "framer-motion"
+import cheerio from "cheerio"
+import axios from "axios"
+
 import IconPokeball from "../../icons/IconPokeball"
 import IconPikachu from "../../icons/IconPikachu"
 import HomeButton from "./HomeButton"
 
-
-
 export default function Home({ history, setHistory }) {
-    function randomPokemon() {
-        const MAX_POK = 600
+    useEffect(() => async () => {
+        const { data } = await axios.get("https://www.bulbagarden.net/", {
+            headers: {
+                "Access-Control-Allow-Origin": "https://www.bulbagarden.net/, http://localhost:3000",
+                "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+            },
+        })
+        console.log(data)
+    })
+    function genRandom() {
+        const MAX_POK = 649
         return Math.floor(Math.random() * MAX_POK)
     }
+    const randomPokemon = `/pokemon/${genRandom()}`
     return (
         <AnimatePresence>
             <motion.div
@@ -25,7 +37,7 @@ export default function Home({ history, setHistory }) {
                         history={history}
                         setHistory={setHistory}
                         color="red"
-                        goto={`/pokemon/${randomPokemon()}`}
+                        goto={randomPokemon}
                         text="Random pokemon"
                     />
                     <div className="bg pokeball">

@@ -23,25 +23,31 @@ function App() {
 
     return (
         <AnimatePresence>
-                <Route key="home" path="/">
-                    <Home history={history} setHistory={setHistory} />{" "}
-                </Route>
-                <Route key="pokedex" path="/pokedex">
-                    <Pokedex
-                        history={history}
-                        setHistory={setHistory}
-                        favoritedPokemons={favoritedPokemons}
-                        setFavoritedPokemons={setFavoritedPokemons}
-                    />
-                </Route>
-                <Route key="pokemon" path="/pokemon/:id">
-                    <PokemonCard
-                        history={history}
-                        setHistory={setHistory}
-                        favoritedPokemons={favoritedPokemons}
-                        setFavoritedPokemons={setFavoritedPokemons}
-                    />
-                </Route>
+                <Route key="home" path="/" element={<Home history={history} setHistory={setHistory} />} />
+                <Route
+                    key="pokedex"
+                    path="/pokedex"
+                    element={
+                        <Pokedex
+                            history={history}
+                            setHistory={setHistory}
+                            favoritedPokemons={favoritedPokemons}
+                            setFavoritedPokemons={setFavoritedPokemons}
+                        />
+                    }
+                />
+                <Route
+                    key="pokemon"
+                    path="/pokemon/:id"
+                    element={
+                        <PokemonCard
+                            history={history}
+                            setHistory={setHistory}
+                            favoritedPokemons={favoritedPokemons}
+                            setFavoritedPokemons={setFavoritedPokemons}
+                        />
+                    }
+                />
         </AnimatePresence>
     )
 }

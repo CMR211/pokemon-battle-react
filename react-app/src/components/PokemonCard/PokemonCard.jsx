@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useParams, useNavigate, useLocation } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { AnimatePresence, motion } from "framer-motion"
 
 // Fetching scripts
@@ -31,7 +31,6 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, h
     console.log("%c Rendering <Pokemon>", "color: blue; font-weight: bold")
     // Get pokemon id from current url parameter
     let { id } = useParams()
-    const [idOrName, setIdOrName] = useState(id)
 
     // Current body content displayed
     // 0 - About, 1 - Stats, 2 - Evolutions, 3 - Generations
@@ -43,14 +42,11 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, h
     const [pokemonEvolutionData, setPokemonEvolutionData] = useState(null)
 
     // On window location change (after user input or redirect) rerender the card with proper pokemon data
-    const location = useLocation()
-    useEffect(() => {
-        setIdOrName(id)
-    }, [location.pathname, id, idOrName])
+    useEffect(() => {}, [id])
 
     // UseEffect fetching
-    usePokemonEndpoint(idOrName, setPokemonData)
-    usePokemonSpeciesEndpoint(idOrName, setPokemonSpeciesData, setPokemonEvolutionData)
+    usePokemonEndpoint(id, setPokemonData)
+    usePokemonSpeciesEndpoint(id, setPokemonSpeciesData, setPokemonEvolutionData)
 
     // Used to show current body content tab
     const shortcuts = {
@@ -61,12 +57,12 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, h
     // Toggles current pokemon "liked" status.
     // Liked pokemons id stored in <App /> state and in LocalStorage.
     const toggleFavorite = () => {
-        if (favoritedPokemons.findIndex((i) => i === idOrName) === -1) {
-            const added = [idOrName, ...favoritedPokemons]
+        if (favoritedPokemons.findIndex((i) => i === id) === -1) {
+            const added = [id, ...favoritedPokemons]
             window.localStorage.setItem("favoritedPokemons", JSON.stringify(added))
             setFavoritedPokemons(added)
         } else {
-            const filtered = favoritedPokemons.filter((i) => i !== idOrName)
+            const filtered = favoritedPokemons.filter((i) => i !== id)
             window.localStorage.setItem("favoritedPokemons", JSON.stringify(filtered))
             setFavoritedPokemons([...filtered])
         }
@@ -76,19 +72,11 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, h
     const navigate = useNavigate()
     const goToPokemon = (inputId) => {
         goToLocation("/pokemon/" + inputId, "/pokemon/" + id, setHistory, navigate)
-        setIdOrName(inputId)
     }
 
-    //
+    // Return to last page
     function handleReturn() {
-        if (!history[history.length-1].includes("/pokemon")) {
-            returnToLocation(navigate, history, setHistory)
-        }
-        else {
-            const prevID = history[history.length - 1].replace("/pokemon/", "")
-            setHistory(prev => [...prev].slice(0,-1))
-            setIdOrName(prevID)
-        }
+        returnToLocation(navigate, history, setHistory)
     }
 
     // Check if data has been fetched otherwise show the loader icon
@@ -109,7 +97,7 @@ export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, h
                     <button
                         className="pokemon-card__nav__button--like pokemon-card__nav__button"
                         onClick={() => toggleFavorite()}>
-                        {favoritedPokemons.findIndex((i) => i === idOrName) === -1 ? <IconNotLiked /> : <IconLiked />}
+                        {favoritedPokemons.findIndex((i) => i === id) === -1 ? <IconNotLiked /> : <IconLiked />}
                     </button>
                 </div>
 

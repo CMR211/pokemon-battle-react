@@ -23,7 +23,6 @@ function App() {
 
     return (
         <AnimatePresence>
-            <Routes>
                 <Route key="home" path="/">
                     <Home history={history} setHistory={setHistory} />{" "}
                 </Route>
@@ -43,7 +42,6 @@ function App() {
                         setFavoritedPokemons={setFavoritedPokemons}
                     />
                 </Route>
-            </Routes>
         </AnimatePresence>
     )
 }

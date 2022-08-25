@@ -1,44 +1,30 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
-import axios from "axios"
 import { AnimatePresence, motion } from "framer-motion"
 
 import usePokemonColors from "../../utilities/usePokemonColors"
+import usePokemonList from "../../utilities/usePokemonList"
 import PokedexCard from "./PokedexCard"
 
 import IconHome from "../../icons/IconHome"
 import IconReturn from "../../icons/IconReturn"
 import IconLoader from "../../icons/IconLoader"
 import IconNo from "../../icons/IconNo"
-import { useRef } from "react"
+
 import { goToLocation } from "../../utilities/goToLocation"
 import { returnToLocation } from "../../utilities/returnToLocation"
 
 export default function Pokedex({ favoritedPokemons, setFavoritedPokemons, history, setHistory }) {
     console.log("%c Rendering <Pokedex>", "color: blue; font-weight: bold")
+
     const [pokemons, setPokemons] = useState(null)
     const [pokemonColors, setPokemonColors] = useState(null)
     const [filteredPokemons, setFilteredPokemons] = useState([])
     const [input, setInput] = useState("")
     const checkboxRef = useRef(null)
 
-    const fetchPokemonList = async (url) => {
-        const { data } = await axios.get(url)
-        const pokemonList = data.results.map((pokemon) => {
-            // Get pokemon id by slicing the target url
-            const id = pokemon.url.replace("https://pokeapi.co/api/v2/pokemon/", "").replace("/", "")
-            // Return an object for each pokemon
-            return {
-                id: id,
-                name: pokemon.name.slice(0, 15), // Few pokemons have too long name to display correctly
-                img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`,
-            }
-        })
-        setPokemons(pokemonList)
-        console.log("%c Fetched Pokemons List", "color: green")
-    }
-
-    useEffect(() => async () => fetchPokemonList("https://pokeapi.co/api/v2/pokemon?limit=649"), [])
+    // Fetching pokemon list
+    usePokemonList(setPokemons)
 
     // Fetching pokemon colors for the backgrounds
     usePokemonColors(setPokemonColors)

@@ -1,11 +1,10 @@
-import { useEffect } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import cheerio from "cheerio"
-import axios from "axios"
 
 import IconPokeball from "../../icons/IconPokeball"
 import IconPikachu from "../../icons/IconPikachu"
 import HomeButton from "./HomeButton"
+
+
 
 export default function Home({ history, setHistory }) {
     console.log("%c Rendering <Home>", "color: blue; font-weight: bold")

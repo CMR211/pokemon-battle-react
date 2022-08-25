@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import axios from "axios"
 
 export default function usePokemonColors(setPokemonColors) {
+    console.log("Fetching pokemon colors...")
     useEffect(
         () => async () => {
             const arr = new Array(10).fill(1).map((item, index) => index + 1)
@@ -10,6 +11,7 @@ export default function usePokemonColors(setPokemonColors) {
             const data = responses.map((res) => {
                 return res.data
             })
+            console.log(data)
             const pc = []
             data.forEach((color) => {
                 color.pokemon_species.forEach((pokemon) => {

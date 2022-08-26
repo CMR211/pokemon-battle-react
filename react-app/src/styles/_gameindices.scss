@@ -1,0 +1,79 @@
+.game-indices {
+    @include Card;
+    background-color: white;
+    &__container {
+        padding: 0 2rem;
+    }
+    overflow: hidden;
+}
+
+.game-indices__gnav-cont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 0 2rem 1rem 2rem;
+    justify-content: space-around;
+}
+.game-indices__gnav-btn {
+    background-color: $clr-red;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    span:nth-of-type(2) {
+        font-size: 0.7rem;
+    }
+}
+
+.game-indices__gen {
+    overflow-y: auto;
+    padding: 0.5rem;
+    height: 34rem;
+    /* scrollbar hide */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    &::-webkit-scrollbar {
+        /* WebKit */
+        width: 0;
+        height: 0;
+    }
+
+    &__title {
+        font-size: 1.35rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    p {
+        text-align: justify;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    p:first-of-type {
+        text-align: center;
+
+        border-bottom: 1px solid rgb(217, 217, 217);
+    }
+    &__img-c {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        margin-bottom: 1rem;
+    }
+    &__img-i {
+        width: 45%;
+        border-radius: 10%;
+    }
+    &__img2-c {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    &__img2-i {
+        width: 90%;
+        border-radius: 1rem;
+    }
+}

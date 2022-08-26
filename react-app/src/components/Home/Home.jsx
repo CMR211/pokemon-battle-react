@@ -6,6 +6,7 @@ import HomeButton from "./HomeButton"
 import IconBook from "../../icons/IconBook"
 import IconQuestionmark from "../../icons/IconQuestionmark"
 import IconBerry from "../../icons/IconBerry"
+import IconFloppy from "../../icons/IconFloppy"
 
 export default function Home({ history, setHistory }) {
     console.log("%c Rendering <Home>", "color: blue; font-weight: bold")
@@ -50,6 +51,14 @@ export default function Home({ history, setHistory }) {
                             goto="/berries"
                             text="Berries">
                             <IconBerry />
+                        </HomeButton>
+                        <HomeButton
+                            history={history}
+                            setHistory={setHistory}
+                            color="blue"
+                            goto="/gameindices"
+                            text="Game indices">
+                            <IconFloppy />
                         </HomeButton>
                     </div>
                 {/* </div> */}

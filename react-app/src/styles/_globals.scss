@@ -34,6 +34,7 @@ $clr-black: rgb(20, 20, 20);
 }
 
 body {
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;

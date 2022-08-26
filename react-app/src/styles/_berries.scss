@@ -1,22 +1,97 @@
 .berries {
+    position: relative;
     @include Card;
     background-color: white;
 }
 
 .berries > div {
-    padding: 2rem;
+    padding: 1rem;
+}
+
+.berries__title {
+    position: absolute;
+    top: 1.3rem;
+    left: 9rem;
 }
 
 .berry {
+    background-color: var(--bg-color);
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 10px 1px rgba(black, 0.1);
+}
+.berry__container {
     display: grid;
-    grid-template-columns: 1fr 5fr 2fr;
+    grid-template-columns: 1fr 4fr;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.berry__img-c {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & img {
+        width: 50px;
+        aspect-ratio: 1;
+    }
 }
 
 .berry__info {
+    font-size: 0.8rem;
+    text-align: justify;
+    padding-right: 0.7rem;
+    &__firmness {
+        text-align: right;
+    }
+}
+
+.berry__flavors {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    grid-column: span 2;
     font-size: 0.8rem;
 }
 
 .berry__flavors div {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    // gap: 0.5rem;
+    background-color: var(--bg-color);
+    padding: 0.2rem;
+    border-radius: 0.3rem;
+    position: relative;
+    &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: var(--width);
+        background-color: var(--bg-color);
+    }
+    & p:first-of-type {
+        font-size: 0.6em;
+    }
+}
+
+.berries__list {
+    overflow-y: auto;
+    padding: 0.5rem;
+    height: 38rem;
+    /* scrollbar hide */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    &::-webkit-scrollbar {
+        /* WebKit */
+        width: 0;
+        height: 0;
+    }
 }

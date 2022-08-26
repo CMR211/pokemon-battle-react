@@ -79,6 +79,7 @@
         height: 0;
     }
     margin-bottom: 1.6rem;
+    height: 35.5rem;
 }
 
 .pokedex__pokemon {
@@ -90,6 +91,7 @@
     border-radius: 1rem;
     position: relative;
     transition: 300ms;
+    box-shadow: 0 0 15px 1px rgba(black, 0.2);
     &__img-c {
         height: 96px;
         aspect-ratio: 1;

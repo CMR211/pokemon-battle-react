@@ -36,7 +36,7 @@ async function fetchData(setBerries) {
             berries[index] = {
                 ...berries[index],
                 name: capitalize(data.name).replace("-berry", " Berry"),
-                flavor_text: data.effect_entries[0].effect,
+                flavor_text: data.effect_entries[0].effect.replaceAll("\n:", ":"),
                 sprite: data.sprites.default,
             }
         })

@@ -21,10 +21,12 @@ export default function Berries({ history, setHistory }) {
             exit={{ y: 20, opacity: 0 }}>
             <BaseNav history={history} setHistory={setHistory} currentLocation="/berries" />
             <div>
-                <h1>Berries</h1>
-                {berries.map((berry) => (
-                    <BerryCard berry={berry} key={berry.name} />
-                ))}
+                <h1 className="berries__title">Berries</h1>
+                <div className="berries__list">
+                    {berries.map((berry) => (
+                        <BerryCard berry={berry} key={berry.name} />
+                    ))}
+                </div>
             </div>
         </motion.div>
     )

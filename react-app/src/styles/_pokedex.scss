@@ -2,7 +2,7 @@
     @include Card;
     position: relative;
     background-color: white;
-    
+
     &__hero {
         padding: 0 $padding;
     }
@@ -80,6 +80,9 @@
     }
     margin-bottom: 1.6rem;
     height: 35.5rem;
+    @media (max-width: $breakpoint) {
+        height: calc(100vh - 130px);
+    }
 }
 
 .pokedex__pokemon {
@@ -143,7 +146,7 @@
 
 .bar {
     position: absolute;
-    top: calc(60px + 62.4px);
+    top: calc(60px + 61.4px);
     z-index: 2;
     width: 100%;
     min-height: 40px;

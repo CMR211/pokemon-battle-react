@@ -94,4 +94,7 @@
         width: 0;
         height: 0;
     }
+    @media (max-width: $breakpoint) {
+        height: calc(100vh - 60px - 2.5rem);
+    }
 }

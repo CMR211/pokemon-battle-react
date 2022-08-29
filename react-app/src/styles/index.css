@@ -92,6 +92,13 @@ button {
   background-color: var(--bg-color);
 }
 
+@media (max-width: 450px) {
+  .pokemon-card {
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
 .pokemon-card__nav {
   padding: 1rem 2rem;
   display: -webkit-box;
@@ -556,6 +563,13 @@ button {
   background-color: white;
 }
 
+@media (max-width: 450px) {
+  .pokedex {
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
 .pokedex__hero {
   padding: 0 2rem;
 }
@@ -658,6 +672,12 @@ button {
   height: 0;
 }
 
+@media (max-width: 450px) {
+  .pokedex__list {
+    height: calc(100vh - 130px);
+  }
+}
+
 .pokedex__pokemon {
   aspect-ratio: 1;
   background-color: var(--bg-color);
@@ -742,7 +762,7 @@ button {
 
 .bar {
   position: absolute;
-  top: calc(60px + 62.4px);
+  top: calc(60px + 61.4px);
   z-index: 2;
   width: 100%;
   min-height: 40px;
@@ -817,6 +837,13 @@ button {
   padding: 2rem;
   position: relative;
   overflow: hidden;
+}
+
+@media (max-width: 450px) {
+  .home {
+    width: 100vw;
+    height: 100vh;
+  }
 }
 
 .home__container {
@@ -922,6 +949,13 @@ button {
   width: 25rem;
   height: 44.1rem;
   background-color: white;
+}
+
+@media (max-width: 450px) {
+  .berries {
+    width: 100vw;
+    height: 100vh;
+  }
 }
 
 .berries > div {
@@ -1043,6 +1077,12 @@ button {
   height: 0;
 }
 
+@media (max-width: 450px) {
+  .berries__list {
+    height: calc(100vh - 60px - 2.5rem);
+  }
+}
+
 .game-indices {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1058,6 +1098,13 @@ button {
   height: 44.1rem;
   background-color: white;
   overflow: hidden;
+}
+
+@media (max-width: 450px) {
+  .game-indices {
+    width: 100vw;
+    height: 100vh;
+  }
 }
 
 .game-indices__container {
@@ -1111,6 +1158,12 @@ button {
   /* WebKit */
   width: 0;
   height: 0;
+}
+
+@media (max-width: 450px) {
+  .game-indices__gen {
+    height: calc(100vh - 60px - 63px - 1.5rem);
+  }
 }
 
 .game-indices__gen__title {

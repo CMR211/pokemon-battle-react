@@ -39,6 +39,9 @@
         width: 0;
         height: 0;
     }
+    @media (max-width: $breakpoint) {
+        height: calc(100vh - 60px - 63px - 1.5rem);
+    }
 
     &__title {
         font-size: 1.35rem;

@@ -28,8 +28,9 @@ export default function Pokedex({ favoritedPokemons, setFavoritedPokemons, histo
     usePokemonColors(setPokemonColors)
 
     useEffect(() => {
+        if(pokemons === null) return
         setFilteredPokemons(pokemons)
-    }, [pokemons])
+    }, [pokemons,pokemonColors])
 
     const filterPokemons = (e) => {
         const searchphrase = e.target.value.toLowerCase()

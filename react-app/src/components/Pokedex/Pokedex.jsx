@@ -1,23 +1,32 @@
+// Libraries
 import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { AnimatePresence, motion } from "framer-motion"
 
+// Utilities
 import usePokemonColors from "../../utilities/usePokemonColors"
 import usePokemonList from "../../utilities/usePokemonList"
-import PokedexCard from "./PokedexCard"
+import { goToLocation } from "../../utilities/goToLocation"
 
+// Components
+import PokedexCard from "./PokedexCard"
+import BaseNav from "../Nav/BaseNav"
+
+// Icons
 import IconLoader from "../../icons/IconLoader"
 import IconNo from "../../icons/IconNo"
 
-import { goToLocation } from "../../utilities/goToLocation"
-import BaseNav from "../Nav/BaseNav"
-
 export default function Pokedex({ favoritedPokemons, setFavoritedPokemons, history, setHistory }) {
-    console.log("%c Rendering <Pokedex>", "color: blue; font-weight: bold")
+    // console.log("%c Rendering <Pokedex>", "color: blue; font-weight: bold")
 
+    // States for fetched data
     const [pokemons, setPokemons] = useState(null)
     const [pokemonColors, setPokemonColors] = useState(null)
+
+    // State for displayed pokemons
     const [filteredPokemons, setFilteredPokemons] = useState([])
+
+    // Inputs 
     const [input, setInput] = useState("")
     const checkboxRef = useRef(null)
 
@@ -28,9 +37,9 @@ export default function Pokedex({ favoritedPokemons, setFavoritedPokemons, histo
     usePokemonColors(setPokemonColors)
 
     useEffect(() => {
-        if(pokemons === null) return
+        if (pokemons === null) return
         setFilteredPokemons(pokemons)
-    }, [pokemons,pokemonColors])
+    }, [pokemons, pokemonColors])
 
     const filterPokemons = (e) => {
         const searchphrase = e.target.value.toLowerCase()

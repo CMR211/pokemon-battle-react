@@ -1,15 +1,23 @@
-import { useEffect, useState } from "react"
+// Libraries
+import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
-import gamesData from "../../json/games.json"
-
+// Components
 import BaseNav from "../Nav/BaseNav"
-import IconLoader from "../../icons/IconLoader"
 import GamePanel from "./GamePanel"
 
+// JSON data
+import gamesData from "../../json/games.json"
+
+// Icons
+import IconLoader from "../../icons/IconLoader"
+
 export default function GameIndices({ history, setHistory }) {
+    // State for current game panel display
     const [panel, setPanel] = useState(0)
+    // State for animation direction
     const [direction, setDirection] = useState(1)
+    // Game panels navigation
     const handlers = {
         previousGame: panel === 0 ? " " : gamesData[panel - 1].title.replace("Pokémon", ""),
         nextGame: panel === gamesData.length - 1 ? " " : gamesData[panel + 1].title.replace("Pokémon", ""),

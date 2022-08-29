@@ -1,14 +1,21 @@
+// Libraries
 import { useState } from "react"
 import { motion } from "framer-motion"
 
+// Icons
 import IconLoader from "../../icons/IconLoader"
 
+// Utilities
 import useBerries from "../../utilities/useBerries"
+
+// Components
 import BaseNav from "../Nav/BaseNav"
 import BerryCard from "./BerryCard"
 
 export default function Berries({ history, setHistory }) {
     const [berries, setBerries] = useState(null)
+
+    
     useBerries(setBerries)
 
     if (berries === null) return <IconLoader />

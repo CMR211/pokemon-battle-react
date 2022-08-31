@@ -14,11 +14,10 @@ import BerryCard from "./BerryCard"
 
 export default function Berries({ history, setHistory }) {
     const [berries, setBerries] = useState(null)
-
-    
     useBerries(setBerries)
 
     if (berries === null) return <IconLoader />
+    
     return (
         <motion.div
             className="berries"

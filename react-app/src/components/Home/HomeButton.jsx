@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom"
 import { COLORS } from "../../utilities/COLORS"
 import { goToLocation } from "../../utilities/goToLocation"
 
-export default function HomeButton({ text, goto, color, history, setHistory, children }) {
+export default function HomeButton({ text, goto, color, setHistory, children }) {
+    // Setting button background color based on "color" props
     const bgcolor = COLORS[color]
 
     const navigate = useNavigate()
-
     function handleClick() {
         return goToLocation(goto, "/", setHistory, navigate)
     }

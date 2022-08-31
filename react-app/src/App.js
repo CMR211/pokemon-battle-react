@@ -1,27 +1,24 @@
-import PokemonCard from "./components/PokemonCard/PokemonCard.jsx"
+// Libraries
 import { Routes, Route } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { AnimatePresence } from "framer-motion"
 
+// Styles
 import "./styles/index.css"
 
+// Components
 import Home from "./components/Home/Home.jsx"
 import Pokedex from "./components/Pokedex/Pokedex.jsx"
+import PokemonCard from "./components/PokemonCard/PokemonCard.jsx"
 import Berries from "./components/Berries/Berries.jsx"
 import GameIndices from "./components/GameIndices/GameIndices.jsx"
 
+// Utilities
+import useLSFavPokemon from "./utilities/useLSFavPokemons.js"
+
 function App() {
     const [history, setHistory] = useState(["/"])
-    const [favoritedPokemons, setFavoritedPokemons] = useState([])
-
-    useEffect(() => {
-        const fp = JSON.parse(window.localStorage.getItem("favoritedPokemons"))
-        if (fp) setFavoritedPokemons(fp)
-    }, [])
-
-    useEffect(() => {
-        console.log(history)
-    }, [history])
+    const [favoritedPokemons, setFavoritedPokemons] = useLSFavPokemon()
 
     return (
         <AnimatePresence>

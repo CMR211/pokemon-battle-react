@@ -12,6 +12,8 @@ import { COLORS } from "../../utilities/COLORS"
 // Utility functions
 import capitalize from "../../utilities/capitalize"
 import padZero from "../../utilities/padZero"
+import { goToLocation } from "../../utilities/goToLocation"
+import { returnToLocation } from "../../utilities/returnToLocation"
 
 // Content Cards
 import ContentCardAbout from "./ContentCardAbout"
@@ -24,8 +26,6 @@ import IconLiked from "../../icons/IconLiked"
 import IconNotLiked from "../../icons/IconNotLiked"
 import IconReturn from "../../icons/IconReturn"
 import IconLoader from "../../icons/IconLoader"
-import { goToLocation } from "../../utilities/goToLocation"
-import { returnToLocation } from "../../utilities/returnToLocation"
 
 export default function PokemonCard({ favoritedPokemons, setFavoritedPokemons, history, setHistory }) {
     console.log("%c Rendering <Pokemon>", "color: blue; font-weight: bold")

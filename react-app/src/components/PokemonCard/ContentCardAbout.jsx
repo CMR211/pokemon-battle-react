@@ -32,7 +32,6 @@ export default function ContentCardAbout({ pokemonSpeciesData, pokemonData }) {
                         <p> {pokemonWeight(pokemonData.weight)}</p>
                     </div>
                 </div>
-                {/* <p className="pokemon-card__body__gender__title">Gender characteristics</p> */}
                 <div className="pokemon-card__body__weight">
                     <IconMale color="currentColor" />
                     <div>

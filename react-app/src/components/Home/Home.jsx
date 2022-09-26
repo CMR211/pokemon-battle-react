@@ -35,11 +35,13 @@ export default function Home({ history, setHistory }) {
                     <IconPikachu />
                 </div>
                 <h1>PokeAPP</h1>
-                <p>Venture through the Pokemon world provided by PokeAPI</p>
+                <p>Venture through the Pokemon world provided by PokeAPI!</p>
                 <div className="home__buttons">
+                <p>Explore pokemons across five generations, learn their strenghts and distinguish their looks.</p>
                     <HomeButton history={history} setHistory={setHistory} color="yellow" goto="/pokedex" text="Pokedex">
                         <IconBook />
                     </HomeButton>
+                    <p>Go wild and find out new pokemon, maybe you will memorize them all!</p>
                     <HomeButton
                         history={history}
                         setHistory={setHistory}
@@ -48,12 +50,15 @@ export default function Home({ history, setHistory }) {
                         text="Random pokemon">
                         <IconQuestionmark />
                     </HomeButton>
+                    <p>See the berries, pokemons most loved treats.</p>
                     <HomeButton history={history} setHistory={setHistory} color="red" goto="/berries" text="Berries">
                         <IconBerry />
                     </HomeButton>
+                    <p>Explore the franchise since its first debut on Gameboy!</p>
                     <HomeButton history={history} setHistory={setHistory} color="blue" goto="/gameindices" text="Game indices">
                         <IconFloppy />
                     </HomeButton>
+                    <p id="copyright">(c) 2022 Bartosz Surma</p>
                 </div>
             </motion.div>
         </AnimatePresence>
